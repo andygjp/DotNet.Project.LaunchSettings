@@ -7,16 +7,13 @@ namespace DotNet.Project.LaunchSettings
     public class Profiles
     {
         [JsonProperty("profiles")]
-        private Dictionary<string, Profile> _items;
+        private IDictionary<string, Profile> _items;
 
-        public Profiles()
-            :this(new Dictionary<string, Profile>())
-        {
-        }
+        public Profiles() 
+            => _items = new Dictionary<string, Profile>();
 
-        [JsonConstructor]
-        public Profiles(Dictionary<string, Profile> items) 
-            => _items = items;
+        public Profiles(IDictionary<string, Profile> items) 
+            => _items = new Dictionary<string, Profile>(items);
 
         public Profile FirstOrEmpty() 
             => _items.Select(x => x.Value).DefaultIfEmpty(new Profile()).First();
