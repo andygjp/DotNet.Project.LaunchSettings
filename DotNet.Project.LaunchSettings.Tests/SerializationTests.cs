@@ -15,6 +15,8 @@ namespace DotNet.Project.LaunchSettings.Tests
                     'profiles': {
                         'profile1': {
                             'commandName': 'Project',
+                            'commandLineArgs': 'arg=x',
+                            'workingDirectory': 'c:\\',
                             'launchBrowser': true,
                             'applicationUrl': 'index',
                             'environmentVariables': {
@@ -31,6 +33,8 @@ namespace DotNet.Project.LaunchSettings.Tests
             var expected = new Profile
             {
                 CommandName = "Project",
+                CommandLineArgs = "arg=x",
+                WorkingDirectory = "c:\\",
                 LaunchBrowser = true,
                 ApplicationUrl = "index",
                 EnvironmentVariables = new Dictionary<string, string>
