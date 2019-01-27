@@ -16,7 +16,7 @@ namespace DotNet.Project.LaunchSettings
             => _items = new Dictionary<string, Profile>(items);
 
         public Profile FirstOrEmpty() 
-            => _items.Select(x => x.Value).DefaultIfEmpty(new Profile()).First();
+            => _items.Select(x => x.Value).DefaultIfEmpty(Profile.Empty).First();
 
         public (bool, Profile) TryGet(string profile) 
             => (_items.TryGetValue(profile, out var x), x);

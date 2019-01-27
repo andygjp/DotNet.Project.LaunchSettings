@@ -15,7 +15,7 @@ namespace DotNet.Project.LaunchSettings.Tests
             
             actual.Should().NotBeNull()
                 .And.Subject
-                .Should().BeEquivalentTo(new Profile());
+                .Should().BeEquivalentTo(Profile.Empty);
         }
         
         [Fact]
@@ -31,20 +31,18 @@ namespace DotNet.Project.LaunchSettings.Tests
         [Fact]
         public void TryGetShouldReturnTrueIfProfilesIsEmpty()
         {
-            var profile = new Profile();
-
             var profileName = "profile1";
-            
+
             var items = new Dictionary<string, Profile>
             {
-                [profileName] = profile
+                [profileName] = Profile.Empty
             };
             
             var profiles = new Profiles(items);
 
             var actual = profiles.TryGet(profileName);
 
-            actual.Should().Be((true, profile));
+            actual.Should().Be((true, Profile.Empty));
         }
     }
 }

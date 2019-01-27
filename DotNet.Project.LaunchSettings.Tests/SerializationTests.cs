@@ -30,18 +30,12 @@ namespace DotNet.Project.LaunchSettings.Tests
 
             var actual = profiles.FirstOrEmpty();
 
-            var expected = new Profile
-            {
-                CommandName = "Project",
-                CommandLineArgs = "arg=x",
-                WorkingDirectory = "c:\\",
-                LaunchBrowser = true,
-                ApplicationUrl = "index",
-                EnvironmentVariables = new Dictionary<string, string>
+            var expected = new Profile("Project", "arg=x", "c:\\", true, "index",
+                new Dictionary<string, string> 
                 {
                     ["var1"] = "value1"
                 }
-            };
+            );
             
             actual.Should().BeEquivalentTo(expected);
         }
