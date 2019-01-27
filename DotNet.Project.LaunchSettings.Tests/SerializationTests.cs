@@ -5,7 +5,7 @@ namespace DotNet.Project.LaunchSettings.Tests
     using Newtonsoft.Json;
     using Xunit;
 
-    public class UnitTest1
+    public class SerializationTests
     {
         [Fact]
         public void JsonShouldBeDeserializedCorrectly()
