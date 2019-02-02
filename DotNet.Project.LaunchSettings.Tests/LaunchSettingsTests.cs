@@ -2,7 +2,6 @@ namespace DotNet.Project.LaunchSettings.Tests
 {
     using System.Collections.Generic;
     using FluentAssertions;
-    using Newtonsoft.Json;
     using Xunit;
 
     public class LaunchSettingsTests
@@ -26,22 +25,6 @@ namespace DotNet.Project.LaunchSettings.Tests
             );
             
             actual.Should().BeEquivalentTo(expected);
-        }
-    }
-
-    public class LaunchSettings
-    {
-        private readonly string _json;
-
-        public LaunchSettings(string json)
-        {
-            _json = json;
-        }
-
-        public Profiles GetProfiles()
-        {
-            var profiles = JsonConvert.DeserializeObject<Profiles>(_json);
-            return profiles;
         }
     }
 }
