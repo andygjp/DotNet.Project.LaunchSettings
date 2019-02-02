@@ -30,18 +30,12 @@ namespace DotNet.Project.LaunchSettings.Tests
                 }
             }";
 
-        public static Profile First
-        {
-            get
-            {
-                var expected = new Profile("Project", "arg=x", "c:\\", true, "index",
-                    new Dictionary<string, string>
-                    {
-                        ["var1"] = "value1"
-                    }
-                );
-                return expected;
-            }
-        }
+        public static Profile First =>
+            new Profile("Project", "arg=x", "c:\\", true, "index",
+                new Dictionary<string, string>
+                {
+                    ["var1"] = "value1"
+                }
+            );
     }
 }
