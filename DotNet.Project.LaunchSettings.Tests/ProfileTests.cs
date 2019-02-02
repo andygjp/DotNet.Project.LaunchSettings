@@ -9,7 +9,7 @@ namespace DotNet.Project.LaunchSettings.Tests
         [Fact]
         public void FirstOrEmptyShouldReturnUnsetProfileIfProfilesIsEmpty()
         {
-            var profiles = new Profiles(new Dictionary<string, Profile>());
+            var profiles = CreatEmptyProfiles();
 
             var actual = profiles.FirstOrEmpty();
             
@@ -17,17 +17,17 @@ namespace DotNet.Project.LaunchSettings.Tests
                 .And.Subject
                 .Should().BeEquivalentTo(Profile.Empty);
         }
-        
+
         [Fact]
         public void TryGetShouldReturnFalseIfProfilesIsEmpty()
         {
-            var profiles = new Profiles(new Dictionary<string, Profile>());
+            var profiles = CreatEmptyProfiles();
 
             var actual = profiles.TryGet("does-not-exist");
 
             actual.Should().Be((false, default));
         }
-        
+
         [Fact]
         public void TryGetShouldReturnTrueIfProfilesIsEmpty()
         {
@@ -43,6 +43,11 @@ namespace DotNet.Project.LaunchSettings.Tests
             var actual = profiles.TryGet(profileName);
 
             actual.Should().Be((true, Profile.Empty));
+        }
+
+        private static Profiles CreatEmptyProfiles()
+        {
+            return new Profiles(new Dictionary<string, Profile>());
         }
     }
 }
