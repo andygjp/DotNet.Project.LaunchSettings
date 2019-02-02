@@ -9,7 +9,6 @@ namespace DotNet.Project.LaunchSettings
     {
         [JsonProperty("profiles")] 
         private Dictionary<string, Profile> _items;
-        private static readonly Dictionary<string, Profile> MissingProfiles = new Dictionary<string, Profile>();
 
         [JsonConstructor]
         private Profiles()
@@ -18,7 +17,8 @@ namespace DotNet.Project.LaunchSettings
         
         internal static Profiles Empty { get; } = new Profiles();
         
-        private Dictionary<string, Profile> Items => _items ?? MissingProfiles;
+        private Dictionary<string, Profile> Items 
+            => _items ?? (_items = new Dictionary<string, Profile>());
 
         public Profiles(IDictionary<string, Profile> items) 
             => _items = new Dictionary<string, Profile>(items);
