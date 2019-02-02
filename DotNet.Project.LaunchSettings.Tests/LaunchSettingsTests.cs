@@ -1,6 +1,5 @@
 namespace DotNet.Project.LaunchSettings.Tests
 {
-    using System.Collections.Generic;
     using FluentAssertions;
     using Xunit;
 
@@ -17,23 +16,9 @@ namespace DotNet.Project.LaunchSettings.Tests
             
             var actual = profiles.FirstOrEmpty();
             
-            var expected = First;
+            var expected = StubbedProfiles.First;
             
             actual.Should().BeEquivalentTo(expected);
-        }
-
-        public static Profile First
-        {
-            get
-            {
-                var expected = new Profile("Project", "arg=x", "c:\\", true, "index",
-                    new Dictionary<string, string>
-                    {
-                        ["var1"] = "value1"
-                    }
-                );
-                return expected;
-            }
         }
     }
 }

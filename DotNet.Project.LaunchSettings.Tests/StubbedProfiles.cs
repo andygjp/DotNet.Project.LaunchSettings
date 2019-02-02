@@ -1,5 +1,7 @@
 namespace DotNet.Project.LaunchSettings.Tests
 {
+    using System.Collections.Generic;
+
     internal static class StubbedProfiles
     {
         public static string Json =>
@@ -27,5 +29,19 @@ namespace DotNet.Project.LaunchSettings.Tests
                     }
                 }
             }";
+
+        public static Profile First
+        {
+            get
+            {
+                var expected = new Profile("Project", "arg=x", "c:\\", true, "index",
+                    new Dictionary<string, string>
+                    {
+                        ["var1"] = "value1"
+                    }
+                );
+                return expected;
+            }
+        }
     }
 }
