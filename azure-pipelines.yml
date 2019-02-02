@@ -15,27 +15,39 @@ variables:
   buildConfiguration: Release
 
 steps:
-- task: NuGetToolInstaller@0
+# - task: NuGetToolInstaller@0
 
-- task: NuGetCommand@2
-  inputs:
-    arguments: --TargetLatestRuntimePatch=true
-    restoreSolution: $(solution)
+# - task: NuGetCommand@2
+#   displayName: Restore Solution
+#   inputs:
+#     arguments: --TargetLatestRuntimePatch=true
+#     restoreSolution: $(solution)
+#     command: restore
 
-- task: MSBuild@1
-  inputs:
-    solution: $(solution)
-    platform: $(buildPlatform)
-    configuration: $(buildConfiguration)
+# - task: DotNetCoreCLI@2
+#   inputs:
+#     command: restore
+
+# - task: MSBuild@1
+#   inputs:
+#     solution: $(solution)
+#     platform: $(buildPlatform)
+#     configuration: $(buildConfiguration)
 
 - task: DotNetCoreCLI@2
-  displayName: run tests
+  displayName: Build solution
+  inputs:
+    command: build
+
+- task: DotNetCoreCLI@2
+  displayName: Run Tests
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
-    arguments: --configuration $(buildConfiguration) --logger trx
+    arguments: --no-build --configuration $(buildConfiguration) --logger trx
 
 - task: PublishTestResults@2
+  displayName: Publish Test Results
   inputs:
     testRunner: VSTest
     testResultsFiles: '**/*.trx'
