@@ -1,6 +1,5 @@
 namespace DotNet.Project.LaunchSettings.Tests
 {
-    using System.IO;
     using FluentAssertions;
     using Xunit;
 
@@ -36,21 +35,6 @@ namespace DotNet.Project.LaunchSettings.Tests
             var expected = StubbedProfiles.First;
             
             actual.Should().BeEquivalentTo(expected);
-        }
-
-        public class FileLaunchSettings : LaunchSettings
-        {
-            private readonly string _filePath;
-
-            public FileLaunchSettings(string filePath)
-            {
-                _filePath = filePath;
-            }
-
-            protected override TextReader GetReader()
-            {
-                return new StreamReader(_filePath);
-            }
         }
     }
 }
