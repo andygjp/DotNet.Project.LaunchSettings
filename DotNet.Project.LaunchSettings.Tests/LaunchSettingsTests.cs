@@ -10,12 +10,8 @@ namespace DotNet.Project.LaunchSettings.Tests
         {
             var json = StubbedProfiles.Json;
             
-            var launchSettings = new JsonLaunchSettings(json);
-            
-            var profiles = launchSettings.GetProfiles();
-            
-            var actual = profiles.FirstOrEmpty();
-            
+            var actual = GetFirstOrEmptyProfile(new JsonLaunchSettings(json));
+
             var expected = StubbedProfiles.First;
             
             actual.Should().BeEquivalentTo(expected);
@@ -26,11 +22,7 @@ namespace DotNet.Project.LaunchSettings.Tests
         {
             var filePath = StubbedProfiles.GetPathToTemporaryJsonFile();
 
-            var launchSettings = new FileLaunchSettings(filePath);
-            
-            var profiles = launchSettings.GetProfiles();
-            
-            var actual = profiles.FirstOrEmpty();
+            var actual = GetFirstOrEmptyProfile(new FileLaunchSettings(filePath));
             
             var expected = StubbedProfiles.First;
             
@@ -40,15 +32,19 @@ namespace DotNet.Project.LaunchSettings.Tests
         [Fact]
         public void VisualStudio_launch_settings_should_deserialize_correctly()
         {
-            var launchSettings = VisualStudioLaunchSettings.FromCaller();
-            
-            var profiles = launchSettings.GetProfiles();
-            
-            var actual = profiles.FirstOrEmpty();
+            var actual = GetFirstOrEmptyProfile(VisualStudioLaunchSettings.FromCaller());
 
             var expected = Profile.Empty;
             
             actual.Should().BeEquivalentTo(expected);
+        }
+
+        private static Profile GetFirstOrEmptyProfile(LaunchSettings launchSettings)
+        {
+            var profiles = launchSettings.GetProfiles();
+
+            var actual = profiles.FirstOrEmpty();
+            return actual;
         }
     }
 }
