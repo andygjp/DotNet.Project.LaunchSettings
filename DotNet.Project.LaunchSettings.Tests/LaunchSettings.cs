@@ -1,5 +1,6 @@
 namespace DotNet.Project.LaunchSettings.Tests
 {
+    using System.IO;
     using Newtonsoft.Json;
 
     public class LaunchSettings
@@ -13,7 +14,10 @@ namespace DotNet.Project.LaunchSettings.Tests
 
         public Profiles GetProfiles()
         {
-            var profiles = JsonConvert.DeserializeObject<Profiles>(_json);
+            var jsonSerializer = JsonSerializer.Create();
+            var stringReader = new StringReader(_json);
+            var jsonTextReader = new JsonTextReader(stringReader);
+            var profiles = jsonSerializer.Deserialize<Profiles>(jsonTextReader);
             return profiles;
         }
     }
