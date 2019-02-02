@@ -16,5 +16,17 @@ namespace DotNet.Project.LaunchSettings
             var vsLaunchSettings = Path.Combine(directory, "Properties\\launchSettings.json");
             return new VisualStudioLaunchSettings(vsLaunchSettings);
         }
+
+        protected override TextReader GetReader()
+        {
+            try
+            {
+                return base.GetReader();
+            }
+            catch (IOException)
+            {
+                return new StringReader("");
+            }
+        }
     }
 }

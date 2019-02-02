@@ -80,6 +80,18 @@ namespace DotNet.Project.LaunchSettings.Tests
 
             ex.Should().BeOfType<FileNotFoundException>();
         }
+        
+        [Fact]
+        public void Missing_visual_studio_launch_settings_file_should_return_empty_profile()
+        {
+            var filePath = "non-existent-file.json";
+            
+            var actual = GetFirstOrEmptyProfile(VisualStudioLaunchSettings.FromCaller(filePath));
+
+            var expected = Profile.Empty;
+            
+            actual.Should().BeEquivalentTo(expected);
+        }
 
         [Fact]
         public void VisualStudio_launch_settings_should_deserialize_correctly()
