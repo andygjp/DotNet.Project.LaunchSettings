@@ -25,9 +25,32 @@ namespace DotNet.Project.LaunchSettings.Tests
         [Fact]
         public void File_based_LaunchSettings_should_deserialize_correctly()
         {
-            string filePath = StubbedProfiles.GetPathToTemporaryJsonFile();
+            var filePath = StubbedProfiles.GetPathToTemporaryJsonFile();
 
-            File.Exists(filePath).Should().BeTrue();
+            var launchSettings = new FileLaunchSettings(filePath);
+            
+            var profiles = launchSettings.GetProfiles();
+            
+            var actual = profiles.FirstOrEmpty();
+            
+            var expected = StubbedProfiles.First;
+            
+            actual.Should().BeEquivalentTo(expected);
+        }
+
+        public class FileLaunchSettings : LaunchSettings
+        {
+            private readonly string _filePath;
+
+            public FileLaunchSettings(string filePath)
+            {
+                _filePath = filePath;
+            }
+
+            protected override TextReader GetReader()
+            {
+                return new StreamReader(_filePath);
+            }
         }
     }
 }
