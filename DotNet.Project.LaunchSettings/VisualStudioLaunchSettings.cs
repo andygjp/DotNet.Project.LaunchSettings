@@ -5,9 +5,12 @@ namespace DotNet.Project.LaunchSettings
 
     public class VisualStudioLaunchSettings : FileLaunchSettings
     {
+        private readonly string _filePath;
+
         private VisualStudioLaunchSettings(string filePath) 
             : base(filePath)
         {
+            _filePath = filePath;
         }
 
         public static FileLaunchSettings FromCaller([CallerFilePath] string filePath = default)
@@ -21,12 +24,16 @@ namespace DotNet.Project.LaunchSettings
         {
             try
             {
-                return base.GetReader();
+                if (File.Exists(_filePath))
+                {
+                    return base.GetReader();
+                }
             }
             catch (IOException)
             {
-                return new StringReader("");
             }
+            
+            return new StringReader("");
         }
     }
 }
