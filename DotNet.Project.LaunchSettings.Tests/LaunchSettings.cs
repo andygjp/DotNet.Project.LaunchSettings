@@ -3,15 +3,8 @@ namespace DotNet.Project.LaunchSettings.Tests
     using System.IO;
     using Newtonsoft.Json;
 
-    public class LaunchSettings
+    public abstract class LaunchSettings
     {
-        private readonly TextReader _reader;
-
-        public LaunchSettings(TextReader reader)
-        {
-            _reader = reader;
-        }
-
         public Profiles GetProfiles()
         {
             var jsonSerializer = JsonSerializer.Create();
@@ -20,7 +13,19 @@ namespace DotNet.Project.LaunchSettings.Tests
             return profiles;
         }
 
-        private TextReader GetReader()
+        protected abstract TextReader GetReader();
+    }
+
+    public class JsonLaunchSettings : LaunchSettings
+    {
+        private readonly TextReader _reader;
+
+        public JsonLaunchSettings(TextReader reader)
+        {
+            _reader = reader;
+        }
+
+        protected override TextReader GetReader()
         {
             return _reader;
         }
