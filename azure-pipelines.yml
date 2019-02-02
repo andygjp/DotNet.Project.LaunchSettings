@@ -7,31 +7,33 @@ trigger:
 - master
 
 pool:
-  vmImage: 'VS2017-Win2016'
+  vmImage: VS2017-Win2016
 
 variables:
   solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  buildPlatform: Any CPU
+  buildConfiguration: Release
 
 steps:
 - task: NuGetToolInstaller@0
 
 - task: NuGetCommand@2
   inputs:
-    restoreSolution: '$(solution)'
+    arguments: --TargetLatestRuntimePatch=true
+    restoreSolution: $(solution)
 
-- task: VSBuild@1
+- task: MSBuild@1
   inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    solution: $(solution)
+    platform: $(buildPlatform)
+    configuration: $(buildConfiguration)
 
 - task: DotNetCoreCLI@2
+  displayName: run tests
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --logger trx '
+    arguments: --configuration $(buildConfiguration) --logger trx
 
 - task: PublishTestResults@2
   inputs:
