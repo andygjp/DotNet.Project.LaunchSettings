@@ -5,12 +5,19 @@ namespace DotNet.Project.LaunchSettings
 
     public abstract class LaunchSettings
     {
+        private readonly JsonSerializer _jsonSerializer = JsonSerializer.Create();
+
         public Profiles GetProfiles()
         {
-            var jsonSerializer = JsonSerializer.Create();
-            var jsonTextReader = new JsonTextReader(GetReader());
-            var profiles = jsonSerializer.Deserialize<Profiles>(jsonTextReader);
+            var jsonTextReader = GetJsonTextReader();
+            var profiles = _jsonSerializer.Deserialize<Profiles>(jsonTextReader);
             return profiles;
+        }
+
+        private JsonTextReader GetJsonTextReader()
+        {
+            var jsonTextReader = new JsonTextReader(GetReader());
+            return jsonTextReader;
         }
 
         protected abstract TextReader GetReader();
