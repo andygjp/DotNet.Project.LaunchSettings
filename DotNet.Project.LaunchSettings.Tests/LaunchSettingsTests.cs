@@ -30,6 +30,18 @@ namespace DotNet.Project.LaunchSettings.Tests
         }
 
         [Fact]
+        public void Empty_content_should_return_empty_profile()
+        {
+            var empty = "";
+            
+            var actual = GetFirstOrEmptyProfile(new JsonLaunchSettings(empty));
+
+            var expected = Profile.Empty;
+            
+            actual.Should().BeEquivalentTo(expected);
+        }
+        
+        [Fact]
         public void File_based_LaunchSettings_should_deserialize_correctly()
         {
             var filePath = StubbedProfiles.GetPathToTemporaryJsonFile();

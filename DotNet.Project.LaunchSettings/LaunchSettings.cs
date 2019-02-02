@@ -11,7 +11,7 @@ namespace DotNet.Project.LaunchSettings
         {
             var jsonTextReader = GetJsonTextReader();
             var profiles = _jsonSerializer.Deserialize<Profiles>(jsonTextReader);
-            return profiles;
+            return profiles ?? Profiles.Empty;
         }
 
         private JsonTextReader GetJsonTextReader() 

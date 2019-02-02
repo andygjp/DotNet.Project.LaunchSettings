@@ -15,7 +15,9 @@ namespace DotNet.Project.LaunchSettings
         private Profiles()
         {
         }
-
+        
+        internal static Profiles Empty { get; } = new Profiles();
+        
         private Dictionary<string, Profile> Items => _items ?? MissingProfiles;
 
         public Profiles(IDictionary<string, Profile> items) 
