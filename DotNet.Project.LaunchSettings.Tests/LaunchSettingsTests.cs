@@ -1,7 +1,5 @@
 namespace DotNet.Project.LaunchSettings.Tests
 {
-    using System.IO;
-    using System.Runtime.CompilerServices;
     using FluentAssertions;
     using Xunit;
 
@@ -51,21 +49,6 @@ namespace DotNet.Project.LaunchSettings.Tests
             var expected = Profile.Empty;
             
             actual.Should().BeEquivalentTo(expected);
-        }
-    }
-
-    public class VisualStudioLaunchSettings : FileLaunchSettings
-    {
-        private VisualStudioLaunchSettings(string filePath) 
-            : base(filePath)
-        {
-        }
-
-        public static FileLaunchSettings FromCaller([CallerFilePath] string filePath = default)
-        {
-            var directory = Path.GetDirectoryName(filePath);
-            var vsLaunchSettings = Path.Combine(directory, "Properties\\launchSettings.json");
-            return new VisualStudioLaunchSettings(vsLaunchSettings);
         }
     }
 }
