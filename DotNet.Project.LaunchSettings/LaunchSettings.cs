@@ -1,4 +1,4 @@
-namespace DotNet.Project.LaunchSettings.Tests
+namespace DotNet.Project.LaunchSettings
 {
     using System.IO;
     using Newtonsoft.Json;
