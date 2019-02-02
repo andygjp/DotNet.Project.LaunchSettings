@@ -15,9 +15,14 @@ namespace DotNet.Project.LaunchSettings.Tests
         public Profiles GetProfiles()
         {
             var jsonSerializer = JsonSerializer.Create();
-            var jsonTextReader = new JsonTextReader(_reader);
+            var jsonTextReader = new JsonTextReader(GetReader());
             var profiles = jsonSerializer.Deserialize<Profiles>(jsonTextReader);
             return profiles;
+        }
+
+        private TextReader GetReader()
+        {
+            return _reader;
         }
     }
 }
