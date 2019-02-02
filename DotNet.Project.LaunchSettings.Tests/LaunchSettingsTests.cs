@@ -27,21 +27,21 @@ namespace DotNet.Project.LaunchSettings.Tests
             
             actual.Should().BeEquivalentTo(expected);
         }
+    }
 
-        private class LaunchSettings
+    public class LaunchSettings
+    {
+        private readonly string _json;
+
+        public LaunchSettings(string json)
         {
-            private readonly string _json;
+            _json = json;
+        }
 
-            public LaunchSettings(string json)
-            {
-                _json = json;
-            }
-
-            public Profiles GetProfiles()
-            {
-                var profiles = JsonConvert.DeserializeObject<Profiles>(_json);
-                return profiles;
-            }
+        public Profiles GetProfiles()
+        {
+            var profiles = JsonConvert.DeserializeObject<Profiles>(_json);
+            return profiles;
         }
     }
 }
