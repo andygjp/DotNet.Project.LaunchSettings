@@ -1,5 +1,6 @@
 namespace DotNet.Project.LaunchSettings.Tests
 {
+    using System.IO;
     using FluentAssertions;
     using Xunit;
 
@@ -49,6 +50,18 @@ namespace DotNet.Project.LaunchSettings.Tests
             var actual = GetFirstOrEmptyProfile(new FileLaunchSettings(filePath));
             
             var expected = StubbedProfiles.First;
+            
+            actual.Should().BeEquivalentTo(expected);
+        }
+        
+        [Fact]
+        public void Empty_file_should_return_empty_profile()
+        {
+            var filePath = Path.GetTempFileName();
+
+            var actual = GetFirstOrEmptyProfile(new FileLaunchSettings(filePath));
+
+            var expected = Profile.Empty;
             
             actual.Should().BeEquivalentTo(expected);
         }
