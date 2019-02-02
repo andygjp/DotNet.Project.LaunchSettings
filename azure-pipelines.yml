@@ -26,7 +26,7 @@ steps:
   displayName: Run Tests
   inputs:
     command: test
-    arguments: --configuration $(buildConfiguration) --no-build --logger \"xunit;LogFilePath=DotNet.Project.LaunchSettings.Tests.results.xml\" DotNet.Project.LaunchSettings.Tests.result.xml
+    arguments: --configuration $(buildConfiguration) --no-build --logger "xunit;LogFilePath=DotNet.Project.LaunchSettings.Tests.results.xml" DotNet.Project.LaunchSettings.Tests.result.xml
 
 - task: PublishTestResults@2
   displayName: Publish Test Results
