@@ -65,6 +65,21 @@ namespace DotNet.Project.LaunchSettings.Tests
             
             actual.Should().BeEquivalentTo(expected);
         }
+        
+        [Fact]
+        public void Missing_file_should_throw_an_error()
+        {
+            var filePath = "non-existent-file.json";
+
+            var fileLaunchSettings = new FileLaunchSettings(filePath);
+
+            var ex = Record.Exception(() =>
+            {
+                fileLaunchSettings.GetProfiles();
+            });
+
+            ex.Should().BeOfType<FileNotFoundException>();
+        }
 
         [Fact]
         public void VisualStudio_launch_settings_should_deserialize_correctly()
