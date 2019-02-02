@@ -7,21 +7,23 @@ namespace DotNet.Project.LaunchSettings
 
     public class Profiles
     {
-        [JsonProperty("profiles")]
-        private IReadOnlyDictionary<string, Profile> _items;
+        [JsonProperty("profiles")] 
+        private Dictionary<string, Profile> _items;
 
         [JsonConstructor]
         private Profiles()
         {
         }
 
+        private Dictionary<string, Profile> Items => _items;
+
         public Profiles(IDictionary<string, Profile> items) 
-            => _items = new ReadOnlyDictionary<string, Profile>(items);
+            => _items = new Dictionary<string, Profile>(items);
 
         public Profile FirstOrEmpty() 
-            => _items.Select(x => x.Value).DefaultIfEmpty(Profile.Empty).First();
+            => Items.Select(x => x.Value).DefaultIfEmpty(Profile.Empty).First();
 
         public (bool, Profile) TryGet(string profile) 
-            => (_items.TryGetValue(profile, out var x), x);
+            => (Items.TryGetValue(profile, out var x), x);
     }
 }
