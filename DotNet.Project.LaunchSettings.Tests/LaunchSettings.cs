@@ -5,18 +5,17 @@ namespace DotNet.Project.LaunchSettings.Tests
 
     public class LaunchSettings
     {
-        private readonly string _json;
+        private readonly TextReader _reader;
 
-        public LaunchSettings(string json)
+        public LaunchSettings(TextReader reader)
         {
-            _json = json;
+            _reader = reader;
         }
 
         public Profiles GetProfiles()
         {
             var jsonSerializer = JsonSerializer.Create();
-            var stringReader = new StringReader(_json);
-            var jsonTextReader = new JsonTextReader(stringReader);
+            var jsonTextReader = new JsonTextReader(_reader);
             var profiles = jsonSerializer.Deserialize<Profiles>(jsonTextReader);
             return profiles;
         }
