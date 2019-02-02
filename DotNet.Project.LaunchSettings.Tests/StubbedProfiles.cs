@@ -1,6 +1,7 @@
 namespace DotNet.Project.LaunchSettings.Tests
 {
     using System.Collections.Generic;
+    using System.IO;
 
     internal static class StubbedProfiles
     {
@@ -37,5 +38,12 @@ namespace DotNet.Project.LaunchSettings.Tests
                     ["var1"] = "value1"
                 }
             );
+
+        public static string GetPathToTemporaryJsonFile()
+        {
+            var filePath = Path.GetTempFileName();
+            File.WriteAllText(filePath, Json);
+            return filePath;
+        }
     }
 }
