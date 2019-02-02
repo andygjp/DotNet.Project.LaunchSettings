@@ -43,42 +43,15 @@ namespace DotNet.Project.LaunchSettings.Tests
         }
         
         [Fact]
-        public void File_based_LaunchSettings_should_deserialize_correctly()
-        {
-            var filePath = StubbedProfiles.GetPathToTemporaryJsonFile();
-
-            var actual = GetFirstOrEmptyProfile(new FileLaunchSettings(filePath));
-            
-            var expected = StubbedProfiles.First;
-            
-            actual.Should().BeEquivalentTo(expected);
-        }
-        
-        [Fact]
         public void Empty_file_should_return_empty_profile()
         {
             var filePath = Path.GetTempFileName();
 
-            var actual = GetFirstOrEmptyProfile(new FileLaunchSettings(filePath));
+            var actual = GetFirstOrEmptyProfile(VisualStudioLaunchSettings.FromCaller(filePath));
 
             var expected = StubbedProfiles.Empty;
             
             actual.Should().BeEquivalentTo(expected);
-        }
-        
-        [Fact]
-        public void Missing_file_should_throw_an_error()
-        {
-            var filePath = "non-existent-file.json";
-
-            var fileLaunchSettings = new FileLaunchSettings(filePath);
-
-            var ex = Record.Exception(() =>
-            {
-                fileLaunchSettings.GetProfiles();
-            });
-
-            ex.Should().BeOfType<FileNotFoundException>();
         }
         
         [Fact]

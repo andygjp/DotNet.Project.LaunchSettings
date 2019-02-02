@@ -2,7 +2,7 @@ namespace DotNet.Project.LaunchSettings
 {
     using System.IO;
 
-    public class FileLaunchSettings : LaunchSettings
+    internal class FileLaunchSettings : LaunchSettings
     {
         private readonly string _filePath;
 

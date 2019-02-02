@@ -3,17 +3,16 @@ namespace DotNet.Project.LaunchSettings
     using System.IO;
     using System.Runtime.CompilerServices;
 
-    public class VisualStudioLaunchSettings : FileLaunchSettings
+    public class VisualStudioLaunchSettings : LaunchSettings
     {
         private readonly string _filePath;
 
-        private VisualStudioLaunchSettings(string filePath) 
-            : base(filePath)
+        private VisualStudioLaunchSettings(string filePath)
         {
             _filePath = filePath;
         }
 
-        public static FileLaunchSettings FromCaller([CallerFilePath] string filePath = default)
+        public static VisualStudioLaunchSettings FromCaller([CallerFilePath] string filePath = default)
         {
             var directory = Path.GetDirectoryName(filePath);
             var vsLaunchSettings = Path.Combine(directory, "Properties\\launchSettings.json");
@@ -26,7 +25,7 @@ namespace DotNet.Project.LaunchSettings
             {
                 if (File.Exists(_filePath))
                 {
-                    return base.GetReader();
+                    return new StreamReader(_filePath);
                 }
             }
             catch (IOException)
