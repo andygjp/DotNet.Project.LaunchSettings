@@ -13,7 +13,7 @@ namespace DotNet.Project.LaunchSettings.Tests
 
             var actual = profiles.FirstOrEmpty();
             
-            actual.Should().BeEquivalentTo(Profile.Empty);
+            actual.Should().BeEquivalentTo(StubbedProfiles.Empty);
         }
 
         [Fact]
@@ -33,14 +33,14 @@ namespace DotNet.Project.LaunchSettings.Tests
 
             var items = new Dictionary<string, Profile>
             {
-                [profileName] = Profile.Empty
+                [profileName] = StubbedProfiles.Empty
             };
             
             var profiles = new Profiles(items);
 
             var actual = profiles.TryGet(profileName);
 
-            actual.Should().Be((true, Profile.Empty));
+            actual.Should().Be((true, StubbedProfiles.Empty));
         }
 
         private static Profiles CreatEmptyProfiles()

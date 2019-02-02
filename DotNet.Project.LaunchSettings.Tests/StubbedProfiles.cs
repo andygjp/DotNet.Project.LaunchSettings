@@ -5,6 +5,9 @@ namespace DotNet.Project.LaunchSettings.Tests
 
     internal static class StubbedProfiles
     {
+        public static Profile Empty { get; }
+            = new Profile(default, default, default, default, default, new Dictionary<string, string>());
+        
         public static string Json =>
             @"{
                 'profiles': {

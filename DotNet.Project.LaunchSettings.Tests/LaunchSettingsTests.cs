@@ -25,19 +25,19 @@ namespace DotNet.Project.LaunchSettings.Tests
             
             var actual = GetFirstOrEmptyProfile(new JsonLaunchSettings(json));
 
-            var expected = Profile.Empty;
+            var expected = StubbedProfiles.Empty;
             
             actual.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
-        public void Empty_content_should_return_empty_profile()
+        public void Empty_content_should_return_empty_StubbedProfiles()
         {
             var empty = "";
             
             var actual = GetFirstOrEmptyProfile(new JsonLaunchSettings(empty));
 
-            var expected = Profile.Empty;
+            var expected = StubbedProfiles.Empty;
             
             actual.Should().BeEquivalentTo(expected);
         }
@@ -61,7 +61,7 @@ namespace DotNet.Project.LaunchSettings.Tests
 
             var actual = GetFirstOrEmptyProfile(new FileLaunchSettings(filePath));
 
-            var expected = Profile.Empty;
+            var expected = StubbedProfiles.Empty;
             
             actual.Should().BeEquivalentTo(expected);
         }
@@ -88,7 +88,7 @@ namespace DotNet.Project.LaunchSettings.Tests
             
             var actual = GetFirstOrEmptyProfile(VisualStudioLaunchSettings.FromCaller(filePath));
 
-            var expected = Profile.Empty;
+            var expected = StubbedProfiles.Empty;
             
             actual.Should().BeEquivalentTo(expected);
         }
@@ -98,7 +98,7 @@ namespace DotNet.Project.LaunchSettings.Tests
         {
             var actual = GetFirstOrEmptyProfile(VisualStudioLaunchSettings.FromCaller());
 
-            var expected = Profile.Empty;
+            var expected = StubbedProfiles.Empty;
             
             actual.Should().BeEquivalentTo(expected);
         }

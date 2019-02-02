@@ -17,7 +17,7 @@ namespace DotNet.Project.LaunchSettings
             EnvironmentVariables = new ReadOnlyDictionary<string, string>(environmentVariables);
         }
 
-        public static Profile Empty { get; }
+        internal static Profile Empty { get; }
             = new Profile(default, default, default, default, default, new Dictionary<string, string>());
         
         public string CommandName { get; }
