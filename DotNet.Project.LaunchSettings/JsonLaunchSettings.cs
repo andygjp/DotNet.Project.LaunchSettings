@@ -4,21 +4,14 @@ namespace DotNet.Project.LaunchSettings
 
     public class JsonLaunchSettings : LaunchSettings
     {
-        private readonly TextReader _reader;
+        private readonly string _json;
 
-        public JsonLaunchSettings(string json)
-            : this(new StringReader(json))
-        {
-        }
-
-        private JsonLaunchSettings(TextReader reader)
-        {
-            _reader = reader;
-        }
+        public JsonLaunchSettings(string json) 
+            => _json = json;
 
         protected override TextReader GetReader()
         {
-            return _reader;
+            return new StringReader(_json);
         }
     }
 }

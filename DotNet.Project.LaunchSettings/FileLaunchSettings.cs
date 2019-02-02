@@ -6,10 +6,8 @@ namespace DotNet.Project.LaunchSettings
     {
         private readonly string _filePath;
 
-        public FileLaunchSettings(string filePath)
-        {
-            _filePath = filePath;
-        }
+        public FileLaunchSettings(string filePath) 
+            => _filePath = filePath;
 
         protected override TextReader GetReader()
         {
