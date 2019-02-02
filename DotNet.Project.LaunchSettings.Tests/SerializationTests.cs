@@ -10,8 +10,28 @@ namespace DotNet.Project.LaunchSettings.Tests
         [Fact]
         public void JsonShouldBeDeserializedCorrectly()
         {
-            var json = 
-                @"{
+            var json = Json;
+
+            var profiles = JsonConvert.DeserializeObject<Profiles>(json);
+
+            var actual = profiles.FirstOrEmpty();
+
+            var expected = new Profile("Project", "arg=x", "c:\\", true, "index",
+                new Dictionary<string, string> 
+                {
+                    ["var1"] = "value1"
+                }
+            );
+            
+            actual.Should().BeEquivalentTo(expected);
+        }
+
+        private static string Json
+        {
+            get
+            {
+                var json =
+                    @"{
                     'profiles': {
                         'profile1': {
                             'commandName': 'Project',
@@ -35,19 +55,8 @@ namespace DotNet.Project.LaunchSettings.Tests
                         }
                     }
                 }";
-
-            var profiles = JsonConvert.DeserializeObject<Profiles>(json);
-
-            var actual = profiles.FirstOrEmpty();
-
-            var expected = new Profile("Project", "arg=x", "c:\\", true, "index",
-                new Dictionary<string, string> 
-                {
-                    ["var1"] = "value1"
-                }
-            );
-            
-            actual.Should().BeEquivalentTo(expected);
+                return json;
+            }
         }
     }
 }
