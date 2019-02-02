@@ -16,6 +16,18 @@ namespace DotNet.Project.LaunchSettings.Tests
             
             actual.Should().BeEquivalentTo(expected);
         }
+        
+        [Fact]
+        public void Empty_json_should_return_empty_profile()
+        {
+            var json = "{ }";
+            
+            var actual = GetFirstOrEmptyProfile(new JsonLaunchSettings(json));
+
+            var expected = Profile.Empty;
+            
+            actual.Should().BeEquivalentTo(expected);
+        }
 
         [Fact]
         public void File_based_LaunchSettings_should_deserialize_correctly()
