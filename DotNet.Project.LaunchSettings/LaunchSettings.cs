@@ -14,11 +14,8 @@ namespace DotNet.Project.LaunchSettings
             return profiles;
         }
 
-        private JsonTextReader GetJsonTextReader()
-        {
-            var jsonTextReader = new JsonTextReader(GetReader());
-            return jsonTextReader;
-        }
+        private JsonTextReader GetJsonTextReader() 
+            => new JsonTextReader(GetReader());
 
         protected abstract TextReader GetReader();
     }

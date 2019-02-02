@@ -9,9 +9,7 @@ namespace DotNet.Project.LaunchSettings
         public FileLaunchSettings(string filePath) 
             => _filePath = filePath;
 
-        protected override TextReader GetReader()
-        {
-            return new StreamReader(_filePath);
-        }
+        protected override TextReader GetReader() 
+            => new StreamReader(_filePath);
     }
 }

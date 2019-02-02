@@ -9,9 +9,7 @@ namespace DotNet.Project.LaunchSettings
         public JsonLaunchSettings(string json) 
             => _json = json;
 
-        protected override TextReader GetReader()
-        {
-            return new StringReader(_json);
-        }
+        protected override TextReader GetReader() 
+            => new StringReader(_json);
     }
 }
