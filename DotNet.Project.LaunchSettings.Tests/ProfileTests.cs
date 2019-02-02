@@ -13,9 +13,7 @@ namespace DotNet.Project.LaunchSettings.Tests
 
             var actual = profiles.FirstOrEmpty();
             
-            actual.Should().NotBeNull()
-                .And.Subject
-                .Should().BeEquivalentTo(Profile.Empty);
+            actual.Should().BeEquivalentTo(Profile.Empty);
         }
 
         [Fact]
