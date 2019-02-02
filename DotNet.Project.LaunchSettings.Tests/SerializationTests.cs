@@ -10,7 +10,7 @@ namespace DotNet.Project.LaunchSettings.Tests
         [Fact]
         public void JsonShouldBeDeserializedCorrectly()
         {
-            var json = Json;
+            var json = StubbedProfiles.Json;
 
             var profiles = JsonConvert.DeserializeObject<Profiles>(json);
 
@@ -25,8 +25,11 @@ namespace DotNet.Project.LaunchSettings.Tests
             
             actual.Should().BeEquivalentTo(expected);
         }
+    }
 
-        private static string Json
+    internal static class StubbedProfiles
+    {
+        public static string Json
         {
             get
             {
