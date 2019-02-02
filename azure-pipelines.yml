@@ -28,6 +28,7 @@ steps:
     command: custom
     custom: test
     arguments: --configuration $(buildConfiguration) --no-build --logger '"xunit;LogFilePath=DotNet.Project.LaunchSettings.Tests.results.xml"' DotNet.Project.LaunchSettings.Tests\DotNet.Project.LaunchSettings.Tests.csproj
+    workingDirectory: $(System.DefaultWorkingDirectory)
 
 - task: PublishTestResults@2
   displayName: Publish Test Results
