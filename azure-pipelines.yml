@@ -38,13 +38,15 @@ steps:
   displayName: Build solution
   inputs:
     command: build
+    configuration: $(buildConfiguration)
 
 - task: DotNetCoreCLI@2
   displayName: Run Tests
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
-    arguments: --no-build --configuration $(buildConfiguration) --logger trx
+    configuration: $(buildConfiguration)
+    arguments: --no-build --logger trx
 
 - task: PublishTestResults@2
   displayName: Publish Test Results
