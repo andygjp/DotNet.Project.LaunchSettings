@@ -1,6 +1,5 @@
 namespace DotNet.Project.LaunchSettings.Tests
 {
-    using System.IO;
     using FluentAssertions;
     using Xunit;
 
@@ -11,7 +10,7 @@ namespace DotNet.Project.LaunchSettings.Tests
         {
             var json = StubbedProfiles.Json;
             
-            var launchSettings = new JsonLaunchSettings(new StringReader(json));
+            var launchSettings = new JsonLaunchSettings(json);
             
             var profiles = launchSettings.GetProfiles();
             

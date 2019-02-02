@@ -20,7 +20,12 @@ namespace DotNet.Project.LaunchSettings.Tests
     {
         private readonly TextReader _reader;
 
-        public JsonLaunchSettings(TextReader reader)
+        public JsonLaunchSettings(string json)
+            : this(new StringReader(json))
+        {
+        }
+
+        private JsonLaunchSettings(TextReader reader)
         {
             _reader = reader;
         }
