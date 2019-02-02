@@ -12,7 +12,6 @@ namespace DotNet.Project.LaunchSettings
 
         [JsonConstructor]
         private Profiles()
-            : this(new Dictionary<string, Profile>())
         {
         }
 
