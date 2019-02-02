@@ -2,18 +2,9 @@ namespace DotNet.Project.LaunchSettings
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using Newtonsoft.Json;
 
     public class Profile
     {
-        public Profile(string commandName, string commandLineArgs, 
-            string workingDirectory, bool launchBrowser, string applicationUrl)
-            :this(commandName, commandLineArgs, workingDirectory, launchBrowser, 
-                applicationUrl, new Dictionary<string, string>())
-        {
-        }
-        
-        [JsonConstructor]
         public Profile(string commandName, string commandLineArgs, 
             string workingDirectory, bool launchBrowser, string applicationUrl,
             IDictionary<string, string> environmentVariables)
@@ -27,7 +18,7 @@ namespace DotNet.Project.LaunchSettings
         }
 
         public static Profile Empty { get; }
-            = new Profile(default, default, default, default, default);
+            = new Profile(default, default, default, default, default, new Dictionary<string, string>());
         
         public string CommandName { get; }
         public string CommandLineArgs { get; }
