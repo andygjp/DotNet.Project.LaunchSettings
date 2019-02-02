@@ -20,18 +20,16 @@ steps:
   displayName: Build solution
   inputs:
     command: build
-    configuration: '(buildConfiguration)'
+    arguments: --configuration (buildConfiguration)
 
 - task: DotNetCoreCLI@2
   displayName: Run Tests
   inputs:
     command: test
-    projects: '**/*Tests/*.csproj'
-    configuration: '$(buildConfiguration)'
-    arguments: --no-build --logger "xunit;LogFilePath=..\\output\\{project}.results.trx"
+    arguments: --configuration (buildConfiguration) --no-build --logger \"xunit;LogFilePath=DotNet.Project.LaunchSettings.Tests.results.xml\" DotNet.Project.LaunchSettings.Tests.result.xml
 
 - task: PublishTestResults@2
   displayName: Publish Test Results
   inputs:
     testRunner: xunit
-    testResultsFiles: '**/*.trx'
+    testResultsFiles: '**/*Tests.results.xml'
