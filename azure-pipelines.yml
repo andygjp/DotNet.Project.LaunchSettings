@@ -16,22 +16,14 @@ variables:
 
 steps:
 
-- task: DotNetCoreCLI@2
-  displayName: Build Solution xxx
+- task: PowerShell@2
+  displayName: Execute Build Script
   inputs:
-    command: build
-    arguments: --configuration $(buildConfiguration)
-
-- task: DotNetCoreCLI@2
-  displayName: Run Tests xxx
-  inputs:
-    command: custom
-    custom: test
-    arguments: --configuration $(buildConfiguration) --no-build --logger '"xunit;LogFilePath=DotNet.Project.LaunchSettings.Tests.results.xml"' DotNet.Project.LaunchSettings.Tests\DotNet.Project.LaunchSettings.Tests.csproj
-    workingDirectory: $(System.DefaultWorkingDirectory)
+    targetType: filePath
+    filePath: ./build.ps1
 
 - task: PublishTestResults@2
   displayName: Publish Test Results
   inputs:
     testRunner: xunit
-    testResultsFiles: '**/*Tests.results.xml'
+    testResultsFiles: test_results/results.xml
