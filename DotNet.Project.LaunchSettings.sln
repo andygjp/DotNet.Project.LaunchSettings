@@ -8,12 +8,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F3353924
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet.Project.LaunchSettings.Tests", "DotNet.Project.LaunchSettings.Tests\DotNet.Project.LaunchSettings.Tests.csproj", "{19E39386-840A-4D78-A24E-656EBE309A75}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{DA03647D-E698-4257-88C1-66CCECCB8D28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA03647D-E698-4257-88C1-66CCECCB8D28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA03647D-E698-4257-88C1-66CCECCB8D28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88C6C671-D258-46C0-809D-16B80A07537D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{88C6C671-D258-46C0-809D-16B80A07537D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88C6C671-D258-46C0-809D-16B80A07537D}.Release|Any CPU.ActiveCfg = Release|Any CPU
