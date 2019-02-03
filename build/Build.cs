@@ -94,6 +94,7 @@ class Build : NukeBuild
         {
             DotNetPublish(s => s
                 .SetProject(Solution.GetProject("DotNet.Project.LaunchSettings"))
+                .SetConfiguration(Configuration)
                 .SetOutput(OutputDirectory)
                 .EnableNoBuild());
         });
