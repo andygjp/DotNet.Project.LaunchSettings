@@ -20,10 +20,11 @@ steps:
   displayName: Execute Build Script
   inputs:
     targetType: filePath
-    filePath: ./build.ps1
+    filePath: .\build.ps1
+    arguments: --configuration Release --verbosity Verbose
 
 - task: PublishTestResults@2
   displayName: Publish Test Results
   inputs:
     testRunner: xunit
-    testResultsFiles: test_results/results.xml
+    testResultsFiles: .\test_results\results.xml
