@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using Nuke.Common;
 using Nuke.Common.Execution;
@@ -21,7 +22,26 @@ class Build : NukeBuild
     ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
     ///   - Microsoft VSCode           https://nuke.build/vscode
 
-    public static int Main () => Execute<Build>(x => x.Publish);
+    public static int Main ()
+    {
+        string path = System.IO.Path.Combine(RootDirectory, ".nuke");
+        Console.Write("Path to .nuke file: ");
+        Console.WriteLine(path);
+
+        Console.Write("Contents of .nuke file: ");
+        try
+        {
+            string str = File.ReadAllLines(path).First();
+            Console.WriteLine(str);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Failed to read content of .nuke file:");
+            Console.WriteLine(ex.ToString());
+        }
+        
+        return Execute<Build>(x => x.Publish);
+    }
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
