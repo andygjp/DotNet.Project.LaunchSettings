@@ -27,7 +27,6 @@ class Build : NukeBuild
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
     [Solution] readonly Solution Solution;
-    [GitRepository] readonly GitRepository GitRepository;
 
     AbsolutePath OutputDirectory => RootDirectory / "output";
     
