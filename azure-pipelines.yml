@@ -22,6 +22,7 @@ steps:
     targetType: filePath
     filePath: .\build.ps1
     arguments: --configuration Release --verbosity Verbose
+    workingDirectory: $(Build.SourcesDirectory)
 
 - task: PublishTestResults@2
   displayName: Publish Test Results
