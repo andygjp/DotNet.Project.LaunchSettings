@@ -16,6 +16,12 @@ variables:
 
 steps:
 
+- task: DotNetCoreCLI@2
+  displayName: List DotNet SDKS
+  inputs:
+    command: custom
+    custom: --list-sdks
+
 - task: PowerShell@2
   displayName: Execute Build Script
   inputs:
