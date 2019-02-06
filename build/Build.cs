@@ -34,7 +34,7 @@ class Build : NukeBuild
         {
             string str = File.ReadAllLines(path).First();
             Console.WriteLine(str);
-            var path2 = Path.Combine(RootDirectory, path);
+            var path2 = Path.Combine(RootDirectory, str);
             var content = File.ReadAllLines(path2);
             Console.WriteLine(content.JoinNewLine());
         }
