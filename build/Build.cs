@@ -44,7 +44,20 @@ class Build : NukeBuild
             Console.WriteLine("Failed to read content of .nuke file:");
             Console.WriteLine(ex.ToString());
         }
-        
+
+        try
+        {
+            Console.WriteLine("Files:");
+            var files = Directory.GetFiles(NukeBuild.RootDirectory, "*.sln", SearchOption.AllDirectories);
+            foreach (var file in files)
+            {
+                Console.WriteLine(file);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.ToString());
+        }
         return Execute<Build>(x => x.Publish);
     }
 
