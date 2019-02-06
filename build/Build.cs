@@ -7,6 +7,7 @@ using Nuke.Common.Git;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
+using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.EnvironmentInfo;
 using static Nuke.Common.IO.FileSystemTasks;
@@ -33,6 +34,9 @@ class Build : NukeBuild
         {
             string str = File.ReadAllLines(path).First();
             Console.WriteLine(str);
+            var path2 = Path.Combine(RootDirectory, path);
+            var content = File.ReadAllLines(path2);
+            Console.WriteLine(content.JoinNewLine());
         }
         catch (Exception ex)
         {
