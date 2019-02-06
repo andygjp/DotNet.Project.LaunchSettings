@@ -25,33 +25,17 @@ class Build : NukeBuild
 
     public static int Main ()
     {
-        string path = System.IO.Path.Combine(RootDirectory, ".nuke");
-        Console.Write("Path to .nuke file: ");
-        Console.WriteLine(path);
-
-        Console.Write("Contents of .nuke file: ");
         try
         {
-            string str = File.ReadAllLines(path).First();
-            Console.WriteLine(str);
-            var path2 = Path.Combine(RootDirectory, str);
-            Console.WriteLine(path2);
-            var content = File.ReadAllLines(path2);
-            Console.WriteLine(content.JoinNewLine());
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Failed to read content of .nuke file:");
-            Console.WriteLine(ex.ToString());
-        }
-
-        try
-        {
-            Console.WriteLine("Files:");
+            var i = 1;
+            Console.WriteLine("Checking solutions files for validity...");
             var files = Directory.GetFiles(NukeBuild.RootDirectory, "*.sln", SearchOption.AllDirectories);
             foreach (var file in files)
             {
-                Console.WriteLine(file);
+                Console.WriteLine($"{i++}: {file}");
+                Console.WriteLine("Parsing...");
+                ProjectModelTasks.ParseSolution(file);
+                Console.WriteLine("Parsed.");
             }
         }
         catch (Exception e)
