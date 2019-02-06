@@ -27,7 +27,7 @@ steps:
   inputs:
     targetType: filePath
     filePath: .\build.ps1
-    arguments: --configuration Release --verbosity Verbose --solution "$(Build.SourcesDirectory)\DotNet.Project.LaunchSettings.sln"
+    arguments: --configuration Debug --verbosity Verbose
     workingDirectory: $(Build.SourcesDirectory)
 
 - task: PublishTestResults@2
