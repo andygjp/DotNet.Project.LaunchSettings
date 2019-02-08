@@ -28,7 +28,7 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [Solution] readonly Solution Solution;
+    [Solution("DotNet.Project.LaunchSettings.sln")] readonly Solution Solution;
 
     AbsolutePath OutputDirectory => RootDirectory / "output";
     
