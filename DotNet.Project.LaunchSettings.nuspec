@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>DotNet.Project.LaunchSettings</id>
+    <version>1.0.0</version>
+    <title>DotNet.Project.LaunchSettings</title>
+    <authors>Andrew Pattison</authors>
+    <owners>Andrew Pattison</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/andygjp/DotNet.Project.LaunchSettings</projectUrl>
+    <description>Parses Visual Studio launchSettings.json</description>
+    <repository type="git" url="https://github.com/andygjp/DotNet.Project.LaunchSettings" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Newtonsoft.Json" version="12.0.1" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="output\DotNet.Project.LaunchSettings.dll" target="lib\netstandard2.0\DotNet.Project.LaunchSettings.dll" />
+  </files>
+</package>

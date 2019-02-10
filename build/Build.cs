@@ -23,7 +23,7 @@ class Build : NukeBuild
     ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
     ///   - Microsoft VSCode           https://nuke.build/vscode
 
-    public static int Main () => Execute<Build>(x => x.Publish);
+    public static int Main () => Execute<Build>(x => x.Pack);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
@@ -31,14 +31,21 @@ class Build : NukeBuild
     [Solution("DotNet.Project.LaunchSettings.sln")] readonly Solution Solution;
 
     AbsolutePath OutputDirectory => RootDirectory / "output";
-    
+
     AbsolutePath TestResultsDirectory => RootDirectory / "test_results";
+
+    AbsolutePath PackageDirectory => RootDirectory / "package";
+
+    AbsolutePath NuspecFile => RootDirectory / "DotNet.Project.LaunchSettings.nuspec";
+
+    readonly string Project = "DotNet.Project.LaunchSettings";
 
     Target Clean => _ => _
         .Executes(() =>
         {
             EnsureCleanDirectory(OutputDirectory);
             EnsureCleanDirectory(TestResultsDirectory);
+            EnsureCleanDirectory(PackageDirectory);
         });
 
     Target Restore => _ => _
@@ -75,9 +82,21 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetPublish(s => s
-                .SetProject(Solution.GetProject("DotNet.Project.LaunchSettings"))
+                .SetProject(Project)
                 .SetConfiguration(Configuration)
                 .SetOutput(OutputDirectory)
+                .EnableNoBuild());
+        });
+
+    Target Pack => _ => _
+        .DependsOn(Publish)
+        .Executes(() =>
+        {
+            DotNetPack(s => s
+                .SetProject(Project)
+                .SetConfiguration(Configuration)
+                .SetOutputDirectory(PackageDirectory)
+                .SetProperty("NuspecFile", NuspecFile.ToString())
                 .EnableNoBuild());
         });
 }
