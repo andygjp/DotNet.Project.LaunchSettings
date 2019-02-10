@@ -58,6 +58,7 @@ steps:
   inputs:
     command: push
     packagesToPush: .\package\*.nupkg
+    nuGetFeedType: external
     externalFeedCredentials: nuget.org
     versioningScheme: byEnvVar
     versionEnvVar: $(Version)
