@@ -52,4 +52,11 @@ steps:
   inputs:
     artifactName: package
     targetPath: .\package
-    
+
+- task: NuGetCommand@2
+  displayName: Publish Package To NuGet
+  inputs:
+    packagesToPush: .\package
+    publishFeedCredentials: nuget.org
+    versioningScheme: byEnvVar
+    versionEnvVar: $(Version)
