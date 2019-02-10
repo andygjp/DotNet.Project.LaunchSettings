@@ -46,5 +46,5 @@ steps:
   displayName: Publish Pipeline Artifact
   inputs:
     artifactName: pipeline_package
-    targetPath: .\package\*.nupkg
+    targetPath: .\package
     
