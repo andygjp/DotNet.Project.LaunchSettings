@@ -34,3 +34,17 @@ steps:
   inputs:
     testRunner: xunit
     testResultsFiles: .\test_results\results.xml
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Artifacts
+  inputs:
+    ArtifactName: package
+    PathtoPublish: .\package\*.nupkg
+    publishLocation: Container
+
+- task: PublishPipelineArtifact@0
+  displayName: Publish Pipeline Artifact
+  inputs:
+    artifactName: pipeline_package
+    targetPath: .\package\*.nupkg
+    
