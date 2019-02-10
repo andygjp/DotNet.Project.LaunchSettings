@@ -30,15 +30,17 @@ class Build : NukeBuild
 
     [Solution("DotNet.Project.LaunchSettings.sln")] readonly Solution Solution;
 
-    AbsolutePath OutputDirectory => RootDirectory / "output";
+    readonly AbsolutePath OutputDirectory = RootDirectory / "output";
 
-    AbsolutePath TestResultsDirectory => RootDirectory / "test_results";
+    readonly AbsolutePath TestResultsDirectory = RootDirectory / "test_results";
 
-    AbsolutePath PackageDirectory => RootDirectory / "package";
+    readonly AbsolutePath PackageDirectory = RootDirectory / "package";
 
-    AbsolutePath NuspecFile => RootDirectory / "DotNet.Project.LaunchSettings.nuspec";
+    readonly AbsolutePath NuspecFile = RootDirectory / "DotNet.Project.LaunchSettings.nuspec";
 
     readonly string Project = "DotNet.Project.LaunchSettings";
+
+    [Parameter] readonly string Version = "1.0.0";
 
     Target Clean => _ => _
         .Executes(() =>
@@ -97,6 +99,7 @@ class Build : NukeBuild
                 .SetConfiguration(Configuration)
                 .SetOutputDirectory(PackageDirectory)
                 .SetProperty("NuspecFile", NuspecFile.ToString())
+                .SetProperty("NuspecProperties", $"Version={Version}")
                 .EnableNoBuild());
         });
 }
