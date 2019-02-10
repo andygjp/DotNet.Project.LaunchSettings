@@ -36,19 +36,19 @@ steps:
     testResultsFiles: .\test_results\results.xml
 
 - task: PublishPipelineArtifact@0
-  displayName: Publish Output
+  displayName: Publish Output Artifact
   inputs:
     artifactName: output
     targetPath: .\output
 
 - task: PublishPipelineArtifact@0
-  displayName: Publish Test Result File
+  displayName: Publish Test Result Artifact
   inputs:
     artifactName: test_results
     targetPath: .\test_results
 
 - task: PublishPipelineArtifact@0
-  displayName: Publish Artifact
+  displayName: Publish Package Artifact
   inputs:
     artifactName: package
     targetPath: .\package
@@ -57,7 +57,7 @@ steps:
   displayName: Publish Package To NuGet
   inputs:
     command: push
-    packagesToPush: .\package
+    packagesToPush: .\package\*.nupkg
     publishFeedCredentials: nuget.org
     versioningScheme: byEnvVar
     versionEnvVar: $(Version)
