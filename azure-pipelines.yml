@@ -55,6 +55,7 @@ steps:
 
 - task: NuGetCommand@2
   displayName: Publish Package To NuGet
+  continueOnError: true
   inputs:
     command: push
     packagesToPush: .\package\*.nupkg
