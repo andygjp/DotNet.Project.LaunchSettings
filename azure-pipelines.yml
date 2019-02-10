@@ -35,16 +35,21 @@ steps:
     testRunner: xunit
     testResultsFiles: .\test_results\results.xml
 
-- task: PublishBuildArtifacts@1
-  displayName: Publish Artifacts
+- task: PublishPipelineArtifact@0
+  displayName: Publish Output
   inputs:
-    ArtifactName: package
-    PathtoPublish: .\package
-    publishLocation: Container
+    artifactName: output
+    targetPath: .\output
 
 - task: PublishPipelineArtifact@0
-  displayName: Publish Pipeline Artifact
+  displayName: Publish Test Result File
   inputs:
-    artifactName: pipeline_package
+    artifactName: test_results
+    targetPath: .\test_results
+
+- task: PublishPipelineArtifact@0
+  displayName: Publish Artifact
+  inputs:
+    artifactName: package
     targetPath: .\package
     
