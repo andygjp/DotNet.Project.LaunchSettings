@@ -39,7 +39,7 @@ steps:
   displayName: Publish Artifacts
   inputs:
     ArtifactName: package
-    PathtoPublish: .\package\*.nupkg
+    PathtoPublish: .\package
     publishLocation: Container
 
 - task: PublishPipelineArtifact@0
