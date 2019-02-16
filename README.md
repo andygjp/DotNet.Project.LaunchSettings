@@ -33,6 +33,24 @@ async Task Example()
 There are two ways I use this library. If you want to use it, first you need to add it to your
 project - you can find it on [Nuget](https://www.nuget.org/packages/DotNet.Project.LaunchSettings/)
 
-## Named profile
-
 ## First profile
+Just grab the first one.
+
+```c#
+var launchSettings = VisualStudioLaunchSettings.FromCaller();
+var profiles = launchSettings.GetProfiles();
+var profile = profiles.FirstOrEmpty();
+```
+
+Really simple if you have one, but if you have many and don't want to use a named profile,
+you can use this library to order you profiles.
+
+## Named profile
+If you intend to use a named profile, you need to ensure it exists before you attempt to use it.
+
+```c#
+var launchSettings = VisualStudioLaunchSettings.FromCaller();
+var profiles = launchSettings.GetProfiles();
+var (exists, profile) = profiles.TryGet("does-not-exist");
+// Check exists before you use it!
+```
