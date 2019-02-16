@@ -13,8 +13,8 @@ I'd rather manage those secrets in my build system instead of a configuration fi
 
 Occasionally I need to investigate issues in these environments and need the logon
 details. I don't want to edit environment variables when I test different environments, 
-so instead I keep those logon details in the `launchSettings.json`, which is ignored, 
-of the acceptance tests project. 
+so instead I keep those logon details in the `launchSettings.json` of the acceptance 
+tests project. (.gitignore this file if you want to do the same.)
 
 ```c#
 async Task Example()
@@ -43,7 +43,7 @@ var profile = profiles.FirstOrEmpty();
 ```
 
 Really simple if you have one, but if you have many and don't want to use a named profile,
-you can use this library to order you profiles.
+~~you can use this dotnet cli command to~~ (I've lost the link) you'll have to order you profiles.
 
 ## Named profile
 If you intend to use a named profile, you need to ensure it exists before you attempt to use it.
