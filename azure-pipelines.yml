@@ -63,5 +63,6 @@ steps:
     nuGetFeedType: external
     publishFeedCredentials: nuget.org
     allowPackageConflicts: true
-    versioningScheme: byEnvVar
-    versionEnvVar: $(Version)
+    versioningScheme: off
+    #versioningScheme: byEnvVar
+    #versionEnvVar: $(Version)
