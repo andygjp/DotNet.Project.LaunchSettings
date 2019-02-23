@@ -1,5 +1,7 @@
 namespace DotNet.Project.LaunchSettings
 {
+    using System;
+    
     public class Result
     {
         private readonly bool _success;
@@ -15,6 +17,18 @@ namespace DotNet.Project.LaunchSettings
         {
             success = _success;
             profile = _profile;
+        }
+
+        public void Match(Action unsuccessful, Action<Profile> successful)
+        {
+            if (_success)
+            {
+                successful(_profile);
+            }
+            else
+            {
+                unsuccessful();
+            }
         }
     }
 }
