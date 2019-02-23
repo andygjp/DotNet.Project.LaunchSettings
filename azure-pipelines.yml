@@ -64,5 +64,3 @@ steps:
     publishFeedCredentials: nuget.org
     allowPackageConflicts: true
     versioningScheme: off
-    #versioningScheme: byEnvVar
-    #versionEnvVar: $(Version)
