@@ -7,6 +7,7 @@ using Nuke.Common.Git;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
+using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.EnvironmentInfo;
@@ -41,6 +42,8 @@ class Build : NukeBuild
     readonly string Project = "DotNet.Project.LaunchSettings";
 
     [Parameter] readonly string Version = "1.0.0";
+    
+    [GitVersion] readonly GitVersion GitVersion;
 
     Target Clean => _ => _
         .Executes(() =>
@@ -94,6 +97,9 @@ class Build : NukeBuild
         .DependsOn(Publish)
         .Executes(() =>
         {
+            Console.Write("GitVersion equals ");
+            Console.WriteLine(GitVersion);
+            
             DotNetPack(s => s
                 .SetProject(Project)
                 .SetConfiguration(Configuration)
