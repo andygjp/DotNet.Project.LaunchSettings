@@ -26,31 +26,7 @@ namespace DotNet.Project.LaunchSettings
         public Profile FirstOrEmpty() 
             => Items.Select(x => x.Value).DefaultIfEmpty(Profile.Empty).First();
 
-        private (bool, Profile) TryGetImpl(string profile) 
-            => (Items.TryGetValue(profile, out var x), x);
-
-        public Result TryGet(string profile)
-        {
-            var x = TryGetImpl(profile);
-            return new Result(x.Item1, x.Item2);
-        }
-    }
-    
-    public class Result
-    {
-        private readonly bool _success;
-        private readonly Profile _profile;
-
-        public Result(bool success, Profile profile)
-        {
-            _success = success;
-            _profile = profile;
-        }
-
-        public void Deconstruct(out bool success, out Profile profile)
-        {
-            success = _success;
-            profile = _profile;
-        }
+        public Result TryGet(string profile) 
+            => new Result(Items.TryGetValue(profile, out var value), value);
     }
 }
