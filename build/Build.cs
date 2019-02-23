@@ -97,8 +97,12 @@ class Build : NukeBuild
         .DependsOn(Publish)
         .Executes(() =>
         {
-            Console.Write("GitVersion equals ");
-            Console.WriteLine(GitVersion);
+            Console.WriteLine("GitVersion:");
+            Console.WriteLine($"Major.Minor.Patch = {GitVersion.Major}.{GitVersion.Minor}.{GitVersion.Patch}");
+            Console.WriteLine($"SemVer = {GitVersion.SemVer}");
+            Console.WriteLine($"FullSemVer = {GitVersion.FullSemVer}");
+            Console.WriteLine($"NuGetVersion = {GitVersion.NuGetVersion}");
+            Console.WriteLine($"NuGetVersionV2 = {GitVersion.NuGetVersionV2}");
             
             DotNetPack(s => s
                 .SetProject(Project)
