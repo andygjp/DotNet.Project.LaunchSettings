@@ -54,3 +54,16 @@ var profiles = launchSettings.GetProfiles();
 var (exists, profile) = profiles.TryGet("does-not-exist");
 // Check exists before you use it!
 ```
+
+### Match
+Theres is alternative syntax to deconstructing the values - invoking Match() instead:
+
+```c#
+var launchSettings = VisualStudioLaunchSettings.FromCaller();
+var profiles = launchSettings.GetProfiles();
+profiles
+    .TryGet("does-not-exist")
+    .Match(
+        () => { Console.WriteLine($"The profile does not exist."); },
+        profile => { Console.WriteLine($"The profile exists."););
+```

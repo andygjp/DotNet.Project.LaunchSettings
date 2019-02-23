@@ -10,6 +10,7 @@
             Examples.FirstOrEmpty();
             Examples.CheckingIfNamedProfileExists();
             Examples.UseNamedProfile();
+            Examples.Match();
         }
     }
 
@@ -47,6 +48,17 @@
             {
                 Console.WriteLine("The profile was null and it caused an exception!");
             }
+        }
+
+        public static void Match()
+        {
+            var launchSettings = VisualStudioLaunchSettings.FromCaller();
+            var profiles = launchSettings.GetProfiles();
+            profiles
+                .TryGet("does-not-exist")
+                .Match(
+                    () => { Console.WriteLine($"The profile does not exist."); },
+                    WriteOut.EnvironmentalVariables);
         }
     }
 
