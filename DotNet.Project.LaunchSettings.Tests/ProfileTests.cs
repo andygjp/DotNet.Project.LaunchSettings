@@ -17,7 +17,7 @@ namespace DotNet.Project.LaunchSettings.Tests
         }
         
         [Fact]
-        public void TryGet2ShouldReturnFalseIfProfilesIsEmpty()
+        public void TryGetShouldReturnFalseIfProfilesIsEmpty()
         {
             var profiles = CreatEmptyProfiles();
 
@@ -29,7 +29,7 @@ namespace DotNet.Project.LaunchSettings.Tests
         }
 
         [Fact]
-        public void TryGet2ShouldReturnTrueIfProfilesIsEmpty()
+        public void TryGetShouldReturnTrueIfProfilesIsEmpty()
         {
             var profileName = "profile1";
 
