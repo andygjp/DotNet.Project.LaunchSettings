@@ -40,8 +40,6 @@ class Build : NukeBuild
     readonly AbsolutePath NuspecFile = RootDirectory / "DotNet.Project.LaunchSettings.nuspec";
 
     readonly string Project = "DotNet.Project.LaunchSettings";
-
-    [Parameter] readonly string Version = "1.0.0";
     
     [GitVersion] readonly GitVersion GitVersion;
 
@@ -92,10 +90,7 @@ class Build : NukeBuild
                 .SetProject(Project)
                 .SetConfiguration(Configuration)
                 .SetOutput(OutputDirectory)
-                .EnableNoBuild()
-//                .SetAssemblyVersion(GitVersion.GetNormalizedAssemblyVersion())
-//                .SetFileVersion(GitVersion.GetNormalizedFileVersion())
-            );
+                .EnableNoBuild());
         });
 
     Target Pack => _ => _
