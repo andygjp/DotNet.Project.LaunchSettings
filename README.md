@@ -51,7 +51,7 @@ If you intend to use a named profile, you need to ensure it exists before you at
 ```c#
 var launchSettings = VisualStudioLaunchSettings.FromCaller();
 var profiles = launchSettings.GetProfiles();
-var (exists, profile) = profiles.TryGet("does-not-exist");
+var (exists, profile) = profiles.Use("does-not-exist");
 // Check exists before you use it!
 ```
 
@@ -62,7 +62,7 @@ Theres is alternative syntax to deconstructing the values - invoking Match() ins
 var launchSettings = VisualStudioLaunchSettings.FromCaller();
 var profiles = launchSettings.GetProfiles();
 profiles
-    .TryGet("does-not-exist")
+    .Use("does-not-exist")
     .Match(
         () => { Console.WriteLine($"The profile does not exist."); },
         profile => { Console.WriteLine($"The profile exists."););

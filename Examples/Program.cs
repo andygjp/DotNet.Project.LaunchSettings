@@ -28,7 +28,7 @@
         {
             var launchSettings = VisualStudioLaunchSettings.FromCaller();
             var profiles = launchSettings.GetProfiles();
-            var (exists, _) = profiles.TryGet("does-not-exist");
+            var (exists, _) = profiles.Use("does-not-exist");
             // Do something else if it doesn't exist
             Console.WriteLine($"The profile does {(exists ? "" : "not")} exist."); 
         }
@@ -37,7 +37,7 @@
         {
             var launchSettings = VisualStudioLaunchSettings.FromCaller();
             var profiles = launchSettings.GetProfiles();
-            var (exists, profile) = profiles.TryGet("does-not-exist");
+            var (exists, profile) = profiles.Use("does-not-exist");
             
             try
             {
@@ -55,7 +55,7 @@
             var launchSettings = VisualStudioLaunchSettings.FromCaller();
             var profiles = launchSettings.GetProfiles();
             profiles
-                .TryGet("does-not-exist")
+                .Use("does-not-exist")
                 .Match(
                     () => { Console.WriteLine($"The profile does not exist."); },
                     WriteOut.EnvironmentalVariables);

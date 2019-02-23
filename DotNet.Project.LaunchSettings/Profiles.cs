@@ -26,7 +26,7 @@ namespace DotNet.Project.LaunchSettings
         public Profile FirstOrEmpty() 
             => Items.Select(x => x.Value).DefaultIfEmpty(Profile.Empty).First();
 
-        public Result TryGet(string profile) 
+        public Result Use(string profile) 
             => new Result(Items.TryGetValue(profile, out var value), value);
     }
 }

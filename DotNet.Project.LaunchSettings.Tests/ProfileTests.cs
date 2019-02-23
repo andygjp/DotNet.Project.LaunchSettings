@@ -17,11 +17,11 @@ namespace DotNet.Project.LaunchSettings.Tests
         }
         
         [Fact]
-        public void TryGetShouldReturnFalseIfProfilesIsEmpty()
+        public void UseShouldReturnFalseIfProfilesIsEmpty()
         {
             var profiles = CreatEmptyProfiles();
 
-            Result result = profiles.TryGet("does-not-exist");
+            Result result = profiles.Use("does-not-exist");
 
             var (success, _) = result;
 
@@ -29,7 +29,7 @@ namespace DotNet.Project.LaunchSettings.Tests
         }
 
         [Fact]
-        public void TryGetShouldReturnTrueIfProfilesIsEmpty()
+        public void UseShouldReturnTrueIfProfilesIsEmpty()
         {
             var profileName = "profile1";
 
@@ -40,7 +40,7 @@ namespace DotNet.Project.LaunchSettings.Tests
             
             var profiles = new Profiles(items);
 
-            var result = profiles.TryGet(profileName);
+            var result = profiles.Use(profileName);
 
             var (success, profile) = result;
             
