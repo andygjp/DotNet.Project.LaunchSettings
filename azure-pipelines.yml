@@ -56,6 +56,7 @@ steps:
 - task: NuGetCommand@2
   displayName: Publish Package To NuGet
   continueOnError: true
+  condition: and(succeeded(), eq(variables['UploadToNuget'], 'true'))
   inputs:
     command: push
     packagesToPush: .\package\*.nupkg
