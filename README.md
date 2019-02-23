@@ -67,3 +67,6 @@ profiles
         () => { Console.WriteLine($"The profile does not exist."); },
         profile => { Console.WriteLine($"The profile exists."););
 ```
+
+# Note Regarding Versioning
+The project uses GitVersion. Versions are bumped by including `+semver:{n}`, where n is major, minor or patch, in the commit message. See [GitVersion configuration documentation](https://gitversion.readthedocs.io/en/latest/configuration/#global-configuration).
