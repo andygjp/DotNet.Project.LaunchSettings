@@ -68,7 +68,9 @@ class Build : NukeBuild
             DotNetBuild(s => s
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
-                .EnableNoRestore());
+                .EnableNoRestore()
+                .SetAssemblyVersion(GitVersion.GetNormalizedAssemblyVersion())
+                .SetFileVersion(GitVersion.GetNormalizedFileVersion()));
         });
 
     Target Test => _ => _
@@ -90,26 +92,22 @@ class Build : NukeBuild
                 .SetProject(Project)
                 .SetConfiguration(Configuration)
                 .SetOutput(OutputDirectory)
-                .EnableNoBuild());
+                .EnableNoBuild()
+//                .SetAssemblyVersion(GitVersion.GetNormalizedAssemblyVersion())
+//                .SetFileVersion(GitVersion.GetNormalizedFileVersion())
+            );
         });
 
     Target Pack => _ => _
         .DependsOn(Publish)
         .Executes(() =>
         {
-            Console.WriteLine("GitVersion:");
-            Console.WriteLine($"Major.Minor.Patch = {GitVersion.Major}.{GitVersion.Minor}.{GitVersion.Patch}");
-            Console.WriteLine($"SemVer = {GitVersion.SemVer}");
-            Console.WriteLine($"FullSemVer = {GitVersion.FullSemVer}");
-            Console.WriteLine($"NuGetVersion = {GitVersion.NuGetVersion}");
-            Console.WriteLine($"NuGetVersionV2 = {GitVersion.NuGetVersionV2}");
-            
             DotNetPack(s => s
                 .SetProject(Project)
                 .SetConfiguration(Configuration)
                 .SetOutputDirectory(PackageDirectory)
                 .SetProperty("NuspecFile", NuspecFile.ToString())
-                .SetProperty("NuspecProperties", $"Version={Version}")
+                .SetProperty("NuspecProperties", $"Version={GitVersion.NuGetVersionV2}")
                 .EnableNoBuild());
         });
 }
