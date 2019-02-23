@@ -15,19 +15,21 @@ namespace DotNet.Project.LaunchSettings.Tests
             
             actual.Should().BeEquivalentTo(StubbedProfiles.Empty);
         }
-
+        
         [Fact]
-        public void TryGetShouldReturnFalseIfProfilesIsEmpty()
+        public void TryGet2ShouldReturnFalseIfProfilesIsEmpty()
         {
             var profiles = CreatEmptyProfiles();
 
-            var actual = profiles.TryGet("does-not-exist");
+            Result result = profiles.TryGet("does-not-exist");
 
-            actual.Should().Be((false, default));
+            var (success, _) = result;
+
+            success.Should().BeFalse();
         }
 
         [Fact]
-        public void TryGetShouldReturnTrueIfProfilesIsEmpty()
+        public void TryGet2ShouldReturnTrueIfProfilesIsEmpty()
         {
             var profileName = "profile1";
 
@@ -38,9 +40,11 @@ namespace DotNet.Project.LaunchSettings.Tests
             
             var profiles = new Profiles(items);
 
-            var actual = profiles.TryGet(profileName);
+            var result = profiles.TryGet(profileName);
 
-            actual.Should().Be((true, StubbedProfiles.Empty));
+            var (success, profile) = result;
+            
+            (success, profile).Should().Be((true, StubbedProfiles.Empty));
         }
 
         private static Profiles CreatEmptyProfiles()
