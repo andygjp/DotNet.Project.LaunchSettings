@@ -6,7 +6,7 @@ namespace DotNet.Project.LaunchSettings.Tests
     public class ResultTests
     {
         [Fact]
-        public void SuccessfulResultsShouldReturnResult()
+        public void SuccessfulResultsShouldCallCorrectCallback()
         {
             Profile actual = default;
 
@@ -19,7 +19,19 @@ namespace DotNet.Project.LaunchSettings.Tests
         }
         
         [Fact]
-        public void UnsuccessfulResultsShouldCallAction()
+        public void SuccessfulResultsShouldReturnResult()
+        {
+            var expected = StubbedProfiles.First;
+            
+            var result = new Result(true, expected);
+            
+            var actual = result.Match(() => default, x => x);
+
+            actual.Should().Be(expected);
+        }
+        
+        [Fact]
+        public void UnsuccessfulResultsShouldCallCorrectCallback()
         {
             var actual = 0;
             
@@ -27,6 +39,15 @@ namespace DotNet.Project.LaunchSettings.Tests
             result.Match(() => { actual++; }, _ => { });
 
             actual.Should().Be(1);
+        }
+        
+        [Fact]
+        public void UnsuccessfulResultsShouldReturnBackup()
+        {
+            var result = new Result(false, default);
+            var actual = result.Match(() => -1, _ => 1);
+
+            actual.Should().Be(-1);
         }
     }
 }

@@ -30,5 +30,8 @@ namespace DotNet.Project.LaunchSettings
                 unsuccessful();
             }
         }
+        
+        public T Match<T>(Func<T> unsuccessful, Func<Profile, T> successful) 
+            => _success ? successful(_profile) : unsuccessful();
     }
 }

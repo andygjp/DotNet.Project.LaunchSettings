@@ -69,5 +69,15 @@ profiles
         profile => { Console.WriteLine($"The profile exists."););
 ```
 
+There is a functional version too:
+
+```c#
+var launchSettings = VisualStudioLaunchSettings.FromCaller();
+var profiles = launchSettings.GetProfiles();
+var profile = profiles
+    .Use("does-not-exist")
+    .Match(() => default, (Profile x) => x);
+```
+
 # Note Regarding Versioning
 The project uses GitVersion. Versions are bumped by including `+semver:{n}`, where `{n}` is major, minor or patch, in the commit message. See [GitVersion configuration documentation](https://gitversion.readthedocs.io/en/latest/configuration/#global-configuration).

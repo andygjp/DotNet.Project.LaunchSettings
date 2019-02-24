@@ -11,6 +11,7 @@
             Examples.CheckingIfNamedProfileExists();
             Examples.UseNamedProfile();
             Examples.Match();
+            Examples.FunctionalMatch();
         }
     }
 
@@ -59,6 +60,17 @@
                 .Match(
                     () => { Console.WriteLine($"The profile does not exist."); },
                     WriteOut.EnvironmentalVariables);
+        }
+
+        public static void FunctionalMatch()
+        {
+            var launchSettings = VisualStudioLaunchSettings.FromCaller();
+            var profiles = launchSettings.GetProfiles();
+            var profile = profiles
+                .Use("does-not-exist")
+                .Match(() => default,x => x);
+
+            Console.WriteLine($"The profile does {(profile is null ? "not" : "")} exist.");
         }
     }
 
