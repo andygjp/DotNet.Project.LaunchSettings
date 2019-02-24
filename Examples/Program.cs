@@ -31,7 +31,7 @@
             var profiles = launchSettings.GetProfiles();
             var (exists, _) = profiles.Use("does-not-exist");
             // Do something else if it doesn't exist
-            Console.WriteLine($"The profile does {(exists ? "" : "not")} exist."); 
+            WriteOut.Line($"The profile does {(exists ? "" : "not")} exist."); 
         }
         
         public static void UseNamedProfile()
@@ -47,7 +47,7 @@
             }
             catch (NullReferenceException)
             {
-                Console.WriteLine("The profile was null and it caused an exception!");
+                WriteOut.Line("The profile was null and it caused an exception!");
             }
         }
 
@@ -58,7 +58,7 @@
             profiles
                 .Use("does-not-exist")
                 .Match(
-                    () => { Console.WriteLine($"The profile does not exist."); },
+                    () => { WriteOut.Line("The profile does not exist."); },
                     WriteOut.EnvironmentalVariables);
         }
 
@@ -70,7 +70,7 @@
                 .Use("does-not-exist")
                 .Match(() => default,x => x);
 
-            Console.WriteLine($"The profile does {(profile is null ? "not" : "")} exist.");
+            WriteOut.Line($"The profile does {(profile is null ? "not" : "")} exist.");
         }
     }
 
@@ -82,14 +82,19 @@
             Console.Write($"The profile has {count} environment variables");
             if (count is 0)
             {
-                Console.WriteLine(".");
+                Line(".");
                 return;
             }
 
             foreach (var (key, value) in profile.EnvironmentVariables)
             {
-                Console.WriteLine($"key={key}, value={value}");
+                Line($"key={key}, value={value}");
             }
+        }
+
+        public static void Line(string message)
+        {
+            Console.WriteLine(message);
         }
     }
 }
