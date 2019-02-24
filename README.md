@@ -4,7 +4,7 @@ Parses Visual Studio launchSettings.json
 [![](https://img.shields.io/azure-devops/build/andygjp0828/DotNet.Project.LaunchSettings/1.svg?style=flat)](https://dev.azure.com/andygjp0828/DotNet.Project.LaunchSettings/_build?definitionId=1)
 ![](https://img.shields.io/azure-devops/tests/andygjp0828/DotNet.Project.LaunchSettings/1.svg?style=flat)
 [![](https://img.shields.io/nuget/v/DotNet.Project.LaunchSettings.svg?style=plastic)](https://www.nuget.org/packages/DotNet.Project.LaunchSettings/)
-[![](https://img.shields.io/github/license/andygjp/DotNet.Project.LaunchSettings.svg)]
+![](https://img.shields.io/github/license/andygjp/DotNet.Project.LaunchSettings.svg)
 
 # Why does this exist?
 
