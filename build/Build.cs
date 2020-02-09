@@ -4,6 +4,7 @@ using System.Linq;
 using Nuke.Common;
 using Nuke.Common.Execution;
 using Nuke.Common.Git;
+using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
@@ -41,7 +42,10 @@ class Build : NukeBuild
 
     readonly string Project = "DotNet.Project.LaunchSettings";
     
+#define WINDOWS
+#if WINDOWS
     [GitVersion] readonly GitVersion GitVersion;
+#endif
 
     Target Clean => _ => _
         .Executes(() =>
@@ -64,11 +68,13 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetBuild(s => s
+#if WINDOWS
+                .SetAssemblyVersion(GitVersion.AssemblySemVer)
+                .SetFileVersion(GitVersion.AssemblySemFileVer)
+#endif
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
-                .EnableNoRestore()
-                .SetAssemblyVersion(GitVersion.GetNormalizedAssemblyVersion())
-                .SetFileVersion(GitVersion.GetNormalizedFileVersion()));
+                .EnableNoRestore());
         });
 
     Target Test => _ => _
@@ -102,7 +108,9 @@ class Build : NukeBuild
                 .SetConfiguration(Configuration)
                 .SetOutputDirectory(PackageDirectory)
                 .SetProperty("NuspecFile", NuspecFile.ToString())
+#if WINDOWS
                 .SetProperty("NuspecProperties", $"Version={GitVersion.NuGetVersionV2}")
+#endif
                 .EnableNoBuild());
         });
 }
