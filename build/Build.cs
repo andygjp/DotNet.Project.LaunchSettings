@@ -1,3 +1,5 @@
+#define WINDOWS
+
 using System;
 using System.IO;
 using System.Linq;
@@ -41,8 +43,7 @@ class Build : NukeBuild
     readonly AbsolutePath NuspecFile = RootDirectory / "DotNet.Project.LaunchSettings.nuspec";
 
     readonly string Project = "DotNet.Project.LaunchSettings";
-    
-#define WINDOWS
+
 #if WINDOWS
     [GitVersion] readonly GitVersion GitVersion;
 #endif
