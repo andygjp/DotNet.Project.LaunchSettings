@@ -71,7 +71,7 @@ namespace DotNet.Project.LaunchSettings.Tests
         {
             var actual = GetFirstOrEmptyProfile(VisualStudioLaunchSettings.FromCaller());
 
-            var expected = StubbedProfiles.Empty;
+            var expected = StubbedProfiles.First;
             
             actual.Should().BeEquivalentTo(expected);
         }

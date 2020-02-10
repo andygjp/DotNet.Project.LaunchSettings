@@ -15,7 +15,7 @@ namespace DotNet.Project.LaunchSettings
         public static VisualStudioLaunchSettings FromCaller([CallerFilePath] string filePath = default)
         {
             var directory = Path.GetDirectoryName(filePath);
-            var vsLaunchSettings = Path.Combine(directory, "Properties\\launchSettings.json");
+            var vsLaunchSettings = Path.Combine(directory, "Properties", "launchSettings.json");
             return new VisualStudioLaunchSettings(vsLaunchSettings);
         }
 

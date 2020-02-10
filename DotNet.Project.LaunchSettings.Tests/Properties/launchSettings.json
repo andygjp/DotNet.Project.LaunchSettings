@@ -1,4 +1,14 @@
 {
   "profiles": {
+    "profile1": {
+      "commandName": "Project",
+      "commandLineArgs": "arg=x",
+      "workingDirectory": "c:\\",
+      "launchBrowser": true,
+      "applicationUrl": "index",
+      "environmentVariables": {
+        "var1": "value1"
+      }
+    }
   }
 }
