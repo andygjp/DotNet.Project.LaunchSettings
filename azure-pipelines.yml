@@ -35,6 +35,8 @@ steps:
     filePath: .\build.ps1
     arguments: --configuration Release
     workingDirectory: $(Build.SourcesDirectory)
+    versioningScheme: byEnvVar
+    versionEnvVar: 'GitVersion.SemVer'
 
 - task: PublishTestResults@2
   displayName: Publish Test Results
