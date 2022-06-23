@@ -22,17 +22,28 @@ steps:
     version: '2.1.30'
 
 - task: PowerShell@2
-  displayName: dotnet info
+  name: gitversionTool
+  displayName: find path to gitversion tools
   inputs:
     targetType: 'inline'
     script: |
-      dotnet --info
+      $packagesPath = dotnet nuget locals global-packages --list
+      $gitversionPath = $packagesPath.Replace("global-packages: ", "") + "gitversion.commandline/5.2.0/"
+      
+      if (Test-Path $gitversionPath) {
+        "path to tooling exists"
+        Write-Host "##vso[task.setvariable variable=gitversionPath;isOutput=true]$gitversionPath"
+      } else {
+        "path '$gitversionPath' does not exist"
+      }
 
 - task: GitVersion@5
   displayName: Git version
   inputs:
     runtime: 'core'
     configFilePath: GitVersion.yml
+    preferBundledVersion: false
+    gitVersionPath: $(gitversionTool.gitversionPath)
 
 - task: DotNetCoreCLI@2
   displayName: List DotNet SDKS
