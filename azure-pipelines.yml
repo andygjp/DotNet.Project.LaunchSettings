@@ -16,9 +16,17 @@ variables:
 
 steps:
 - task: UseDotNet@2
+  displayName: Download old version of dotnet to satisfy gitversion requirements
   inputs:
     packageType: 'runtime'
     version: '2.1.30'
+
+- task: PowerShell@2
+  displayName: dotnet info
+  inputs:
+    targetType: 'inline'
+    script: |
+      dotnet --info
 
 - task: GitVersion@5
   displayName: Git version
