@@ -15,13 +15,12 @@ variables:
   GitVersion.SemVer: ''
 
 steps:
-
-- task: gittools.gitversion.gitversion-task.GitVersion@5
+- task: GitVersion@5
   displayName: Git version
   inputs:
-    useConfigFile: true
+    runtime: 'core'
     configFilePath: GitVersion.yml
-      
+
 - task: DotNetCoreCLI@2
   displayName: List DotNet SDKS
   inputs:
