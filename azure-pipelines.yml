@@ -21,6 +21,13 @@ steps:
     packageType: 'runtime'
     version: '2.1.30'
 
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: 'restore'
+    projects: '$(Build.SourcesDirectory)'
+    feedsToUse: 'select'
+
 - task: PowerShell@2
   name: gitversionTool
   displayName: find path to gitversion tools
@@ -30,7 +37,7 @@ steps:
       $packagesPath = dotnet nuget locals global-packages --list
       $gitversionPath = $packagesPath.Replace("global-packages: ", "") + "gitversion.commandline/5.2.0/"
       
-      if (Test-Path $gitversionPath) {
+      if ($null -eq $gitversionPath -and Test-Path $gitversionPath) {
         "path to tooling exists"
         Write-Host "##vso[task.setvariable variable=gitversionPath;isOutput=true]$gitversionPath"
       } else {
