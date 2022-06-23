@@ -34,8 +34,11 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      "nuget package locations:"
+      dotnet nuget locals all --list
+      
       $packagesPath = dotnet nuget locals global-packages --list
-      $gitversionPath = $packagesPath.Replace("global-packages: ", "") + "gitversion.commandline/5.2.0/"
+      $gitversionPath = $packagesPath.Replace("global-packages: ", "") + "gitversion.commandline\5.2.0\"
       
       if ($null -ne $gitversionPath -and (Test-Path $gitversionPath)) {
         "path to tooling exists"
