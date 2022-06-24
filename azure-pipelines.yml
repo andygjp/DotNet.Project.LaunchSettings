@@ -38,7 +38,7 @@ steps:
 - task: GitVersion@5
   displayName: Git version
   inputs:
-    runtime: 'core'
+    runtime: 'full'
     configFilePath: GitVersion.yml
     preferBundledVersion: false
     gitVersionPath: $(gitversionTool.gitversionPath)
