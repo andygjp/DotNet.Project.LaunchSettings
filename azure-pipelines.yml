@@ -15,33 +15,11 @@ variables:
   GitVersion.SemVer: ''
 
 steps:
-- task: PowerShell@2
-  name: gitversionTool 
-  displayName: Find path to gitversion tools
-  inputs:
-    targetType: 'inline'
-    script: |
-      "restoring build dependencies..."
-      dotnet restore .\build\_build.csproj --no-dependencies --packages .\buildDeps
-
-      $gitversionPath = "$($PWD.Path)\.\buildDeps\gitversion.commandline\5.2.0\tools\gitversion.exe"
-
-      if ($null -ne $gitversionPath -and (Test-Path $gitversionPath)) {
-        "path to tooling exists"
-        Write-Host "##vso[task.setvariable variable=gitversionPath;isOutput=true]$gitversionPath"
-      } else {
-        "path '$gitversionPath' does not exist"
-        Get-ChildItem .\buildDeps\git*
-      }
-    workingDirectory: '$(Build.SourcesDirectory)'
-
 - task: GitVersion@5
   displayName: Git version
   inputs:
     runtime: 'full'
     configFilePath: GitVersion.yml
-    preferBundledVersion: false
-    gitVersionPath: $(gitversionTool.gitversionPath)
 
 - task: PowerShell@2
   displayName: Execute Build Script
