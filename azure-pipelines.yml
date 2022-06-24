@@ -16,22 +16,24 @@ variables:
 
 steps:
 - task: PowerShell@2
+  name: gitversionTool 
   displayName: find path to gitversion tools
   inputs:
     targetType: 'inline'
     script: |
+      "restoring build dependencies..."
       dotnet restore .\build\_build.csproj --no-dependencies --packages .\buildDeps
 
-      $gitversionPath = ".\buildDeps\gitversion.commandline\5.2.0\"
+      $gitversionPath = "$($PWD.Path)\.\buildDeps\gitversion.commandline\5.2.0\"
 
       if ($null -ne $gitversionPath -and (Test-Path $gitversionPath)) {
         "path to tooling exists"
         Write-Host "##vso[task.setvariable variable=gitversionPath;isOutput=true]$gitversionPath"
       } else {
         "path '$gitversionPath' does not exist"
+        Get-ChildItem .\buildDeps\git*
       }
     workingDirectory: '$(Build.SourcesDirectory)'
-
 
 - task: GitVersion@5
   displayName: Git version
@@ -40,12 +42,6 @@ steps:
     configFilePath: GitVersion.yml
     preferBundledVersion: false
     gitVersionPath: $(gitversionTool.gitversionPath)
-
-- task: DotNetCoreCLI@2
-  displayName: List DotNet SDKS
-  inputs:
-    command: custom
-    custom: --list-sdks
 
 - task: PowerShell@2
   displayName: Execute Build Script
