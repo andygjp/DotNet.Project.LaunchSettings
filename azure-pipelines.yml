@@ -17,14 +17,14 @@ variables:
 steps:
 - task: PowerShell@2
   name: gitversionTool 
-  displayName: find path to gitversion tools
+  displayName: Find path to gitversion tools
   inputs:
     targetType: 'inline'
     script: |
       "restoring build dependencies..."
       dotnet restore .\build\_build.csproj --no-dependencies --packages .\buildDeps
 
-      $gitversionPath = "$($PWD.Path)\.\buildDeps\gitversion.commandline\5.2.0\"
+      $gitversionPath = "$($PWD.Path)\.\buildDeps\gitversion.commandline\5.2.0\tools\gitversion.exe"
 
       if ($null -ne $gitversionPath -and (Test-Path $gitversionPath)) {
         "path to tooling exists"
