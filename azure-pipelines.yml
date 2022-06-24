@@ -15,37 +15,23 @@ variables:
   GitVersion.SemVer: ''
 
 steps:
-- task: UseDotNet@2
-  displayName: Download old version of dotnet to satisfy gitversion requirements
-  inputs:
-    packageType: 'runtime'
-    version: '2.1.30'
-
-- task: DotNetCoreCLI@2
-  displayName: Restore
-  inputs:
-    command: 'restore'
-    projects: '$(Build.SourcesDirectory)'
-    feedsToUse: 'select'
-
 - task: PowerShell@2
-  name: gitversionTool
   displayName: find path to gitversion tools
   inputs:
     targetType: 'inline'
     script: |
-      "nuget package locations:"
-      dotnet nuget locals all --list
-      
-      $packagesPath = dotnet nuget locals global-packages --list
-      $gitversionPath = $packagesPath.Replace("global-packages: ", "") + "gitversion.commandline\5.2.0\"
-      
+      dotnet restore .\build\_build.csproj --no-dependencies --packages .\buildDeps
+
+      $gitversionPath = ".\buildDeps\gitversion.commandline\5.2.0\"
+
       if ($null -ne $gitversionPath -and (Test-Path $gitversionPath)) {
         "path to tooling exists"
         Write-Host "##vso[task.setvariable variable=gitversionPath;isOutput=true]$gitversionPath"
       } else {
         "path '$gitversionPath' does not exist"
       }
+    workingDirectory: '$(Build.SourcesDirectory)'
+
 
 - task: GitVersion@5
   displayName: Git version
