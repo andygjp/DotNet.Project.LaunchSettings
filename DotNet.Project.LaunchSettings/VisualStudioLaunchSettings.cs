@@ -36,7 +36,7 @@ public class VisualStudioLaunchSettings : LaunchSettings
         {
             if (File.Exists(filePath))
             {
-                return new FileStream(filePath, FileMode.Open);
+                return new FileStream(filePath, FileMode.Open, FileAccess.Read);
             }
         }
         catch (IOException)

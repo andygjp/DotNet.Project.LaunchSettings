@@ -22,13 +22,6 @@ steps:
     configFilePath: GitVersion.yml
 
 - task: PowerShell@2
-  displayName: Does dotnet test work?
-  inputs:
-    targetType: 'inline'
-    script: |
-      dotnet test
-
-- task: PowerShell@2
   displayName: Execute Build Script
   inputs:
     targetType: filePath
