@@ -1,37 +1,24 @@
-namespace DotNet.Project.LaunchSettings
+namespace DotNet.Project.LaunchSettings;
+
+using System;
+
+public record Result(bool Success, Profile? Profile)
 {
-    using System;
-    
-    public class Result
+    public void Match(Action unsuccessful, Action<Profile> successful)
     {
-        private readonly bool _success;
-        private readonly Profile _profile;
-
-        public Result(bool success, Profile profile)
+        if (Success)
         {
-            _success = success;
-            _profile = profile;
+            successful(Profile ?? Invalid());
         }
-
-        public void Deconstruct(out bool success, out Profile profile)
+        else
         {
-            success = _success;
-            profile = _profile;
+            unsuccessful();
         }
-
-        public void Match(Action unsuccessful, Action<Profile> successful)
-        {
-            if (_success)
-            {
-                successful(_profile);
-            }
-            else
-            {
-                unsuccessful();
-            }
-        }
-        
-        public T Match<T>(Func<T> unsuccessful, Func<Profile, T> successful) 
-            => _success ? successful(_profile) : unsuccessful();
     }
+
+    public T Match<T>(Func<T> unsuccessful, Func<Profile, T> successful)
+        => Success ? successful(Profile ?? Invalid()) : unsuccessful();
+
+    private static Profile Invalid() 
+        => throw new InvalidOperationException("Profile is null when Success is true.");
 }

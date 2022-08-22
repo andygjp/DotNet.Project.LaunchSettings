@@ -1,32 +1,20 @@
 namespace DotNet.Project.LaunchSettings
 {
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq;
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
 
     public class Profiles
     {
-        [JsonProperty("profiles")] 
-        private Dictionary<string, Profile> _items;
+        [JsonPropertyName("profiles")] 
+        public Dictionary<string, Profile> Items { get; init; } = new();
 
-        [JsonConstructor]
-        private Profiles()
-        {
-        }
+        [JsonIgnore] 
+        internal static Profiles Empty { get; } = new();
 
-        public Profiles(IDictionary<string, Profile> items) 
-            => _items = new Dictionary<string, Profile>(items);
-
-        internal static Profiles Empty { get; } = new Profiles();
-
-        private Dictionary<string, Profile> Items 
-            => _items ?? (_items = new Dictionary<string, Profile>());
-
-        public Profile FirstOrEmpty() 
+        public Profile FirstOrEmpty()
             => Items.Select(x => x.Value).DefaultIfEmpty(Profile.Empty).First();
 
-        public Result Use(string profile) 
-            => new Result(Items.TryGetValue(profile, out var value), value);
+        public Result Use(string profile) => new(Items.TryGetValue(profile, out var value), value);
     }
 }

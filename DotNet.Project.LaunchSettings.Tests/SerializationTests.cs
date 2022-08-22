@@ -1,23 +1,23 @@
-namespace DotNet.Project.LaunchSettings.Tests
+namespace DotNet.Project.LaunchSettings.Tests;
+
+using System.Text.Json;
+using FluentAssertions;
+using Xunit;
+
+public class SerializationTests
 {
-    using FluentAssertions;
-    using Newtonsoft.Json;
-    using Xunit;
-
-    public class SerializationTests
+    [Fact]
+    public void JsonShouldBeDeserializedCorrectly()
     {
-        [Fact]
-        public void JsonShouldBeDeserializedCorrectly()
-        {
-            var json = StubbedProfiles.Json;
+        var json = StubbedProfiles.Json;
 
-            var profiles = JsonConvert.DeserializeObject<Profiles>(json);
+        var profiles = JsonSerializer.Deserialize<Profiles>(json,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
 
-            var actual = profiles.FirstOrEmpty();
+        var actual = profiles.FirstOrEmpty();
 
-            var expected = StubbedProfiles.First;
-            
-            actual.Should().BeEquivalentTo(expected);
-        }
+        var expected = StubbedProfiles.First;
+
+        actual.Should().BeEquivalentTo(expected);
     }
 }

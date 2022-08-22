@@ -1,38 +1,48 @@
-namespace DotNet.Project.LaunchSettings
+namespace DotNet.Project.LaunchSettings;
+
+using System.IO;
+using System.Linq;
+using System.Runtime.CompilerServices;
+
+public class VisualStudioLaunchSettings : LaunchSettings
 {
-    using System.IO;
-    using System.Runtime.CompilerServices;
+    private readonly string filePath;
 
-    public class VisualStudioLaunchSettings : LaunchSettings
+    private VisualStudioLaunchSettings(string filePath)
     {
-        private readonly string _filePath;
+        this.filePath = filePath;
+    }
 
-        private VisualStudioLaunchSettings(string filePath)
+    public static VisualStudioLaunchSettings FromCaller([CallerFilePath] string filePath = "")
+    {
+        string? directory = null;
+        do
         {
-            _filePath = filePath;
-        }
+            directory = directory is null ? Path.GetDirectoryName(filePath) : Directory.GetParent(directory)?.FullName;
+        } while (directory is not null && HasCsproj(directory));
+        
+        return new VisualStudioLaunchSettings(directory is {} ? Path.Combine(directory, "Properties", "launchSettings.json") : "");
+    }
 
-        public static VisualStudioLaunchSettings FromCaller([CallerFilePath] string filePath = default)
-        {
-            var directory = Path.GetDirectoryName(filePath);
-            var vsLaunchSettings = Path.Combine(directory, "Properties", "launchSettings.json");
-            return new VisualStudioLaunchSettings(vsLaunchSettings);
-        }
+    private static bool HasCsproj(string? directory)
+    {
+        return string.IsNullOrWhiteSpace(directory) is false &&
+               Directory.GetFiles(directory, "*.csproj", SearchOption.TopDirectoryOnly).FirstOrDefault() is null;
+    }
 
-        protected override TextReader GetReader()
+    protected override Stream GetReader()
+    {
+        try
         {
-            try
+            if (File.Exists(filePath))
             {
-                if (File.Exists(_filePath))
-                {
-                    return new StreamReader(_filePath);
-                }
+                return new FileStream(filePath, FileMode.Open);
             }
-            catch (IOException)
-            {
-            }
-            
-            return new StringReader("");
         }
+        catch (IOException)
+        {
+        }
+
+        return Stream.Null;
     }
 }

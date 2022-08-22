@@ -1,22 +1,37 @@
-namespace DotNet.Project.LaunchSettings
+namespace DotNet.Project.LaunchSettings;
+
+using System.IO;
+using System.Text.Json;
+
+public abstract class LaunchSettings
 {
-    using System.IO;
-    using Newtonsoft.Json;
-
-    public abstract class LaunchSettings
+    public Profiles GetProfiles()
     {
-        private readonly JsonSerializer _jsonSerializer = JsonSerializer.Create();
-
-        public Profiles GetProfiles()
-        {
-            var jsonTextReader = GetJsonTextReader();
-            var profiles = _jsonSerializer.Deserialize<Profiles>(jsonTextReader);
-            return profiles ?? Profiles.Empty;
-        }
-
-        private JsonTextReader GetJsonTextReader() 
-            => new JsonTextReader(GetReader());
-
-        protected abstract TextReader GetReader();
+        return Deserialize() ?? Profiles.Empty;
     }
+
+    private Profiles? Deserialize()
+    {
+        try
+        {
+            return JsonSerializer.Deserialize<Profiles>(GetReader(), Options());
+        }
+        catch (JsonException ex) when(NotJson(ex))
+        {
+            // Newtonsoft was more forgivable about what it excepted as valid input
+            return Profiles.Empty;
+        }
+    }
+
+    private static bool NotJson(JsonException ex)
+    {
+        return ex.Path is "$" && ex.LineNumber is 0 && ex.BytePositionInLine is 0;
+    }
+
+    private static JsonSerializerOptions Options()
+    {
+        return new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+    }
+
+    protected abstract Stream GetReader();
 }
