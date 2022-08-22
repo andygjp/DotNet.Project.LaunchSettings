@@ -5,15 +5,15 @@ using System.Text;
 
 public class JsonLaunchSettings : LaunchSettings
 {
-    private readonly string _json;
+    private readonly string json;
 
-    public JsonLaunchSettings(string json) => _json = json;
+    public JsonLaunchSettings(string json) => this.json = json;
 
     protected override Stream GetReader()
     {
         var memoryStream = new MemoryStream();
         using var streamWriter = new StreamWriter(memoryStream, Encoding.UTF8, 1024, leaveOpen: true);
-        streamWriter.Write(_json);
+        streamWriter.Write(json);
         streamWriter.Flush();
         memoryStream.Position = 0;
         streamWriter.Close();
