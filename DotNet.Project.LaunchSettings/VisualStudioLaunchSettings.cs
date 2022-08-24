@@ -19,15 +19,19 @@ public class VisualStudioLaunchSettings : LaunchSettings
         do
         {
             directory = directory is null ? Path.GetDirectoryName(filePath) : Directory.GetParent(directory)?.FullName;
-        } while (directory is not null && HasCsproj(directory));
+        } while (LookingForCsproj(directory));
         
         return new VisualStudioLaunchSettings(directory is {} ? Path.Combine(directory, "Properties", "launchSettings.json") : "");
     }
 
-    private static bool HasCsproj(string? directory)
+    private static bool LookingForCsproj(string? directory)
     {
-        return string.IsNullOrWhiteSpace(directory) is false &&
-               Directory.GetFiles(directory, "*.csproj", SearchOption.TopDirectoryOnly).FirstOrDefault() is null;
+        return directory is not null && Directory.Exists(directory) && HasCsproj(directory);
+    }
+
+    private static bool HasCsproj(string directory)
+    {
+        return Directory.GetFiles(directory, "*.csproj", SearchOption.TopDirectoryOnly).FirstOrDefault() is null;
     }
 
     protected override Stream GetReader()
